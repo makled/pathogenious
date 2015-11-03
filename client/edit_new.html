@@ -1,0 +1,31 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Pathogenious Scenarios</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+    <h1>Search/Edit scearios</h1>
+ <label >Search by topic:</label>
+    <input type="text" class="form-control span12 scenario-topic">
+      <label >Search by level:</label>
+    <input type="text" class="form-control span12 scenario-level">
+    <label>Search by ini </label>
+  <textarea class="form-control span12 ini" rows="5" id="ini-text"></textarea>
+   <p><a class="btn btn-lg btn-success search" role="button">search</a></p>
+   <div class="results"> </div>
+   </div>
+   </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/edit.js"></script>
+  </body>
+</html>

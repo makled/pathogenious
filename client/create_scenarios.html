@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
+<title>PathoGenious new scenarios</title>
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+  </head>
+  <body>
+    <h1>PathoGenious Database!</h1>
+    
+    <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Scenario info</h3>
+  </div>
+  <div class="panel-body">
+       <label >topic:</label>
+    <input type="text" class="form-control scenario-topic">
+      <label >level:</label>
+    <input type="text" class="form-control scenario-level">
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+    <h4 class="panel-title"></h4>
+    <a role="button" data-toggle="collapse" data-target="#ini" href="#">Initial:</a>
+    </h4>
+    </div>
+    <div class="collapse in" id="ini">
+  <textarea class="form-control" rows="5" id="ini-text"></textarea>
+   <div id="ini-choices">
+     </br>
+     </br>
+        <button type="button" class="btn btn-primary" id="add-choices-ini">add choices</button>
+    </div>
+   
+    </div>
+     </div>
+    </br>
+    <label>Rooms: </label>
+    <div class="panel-group" id="rooms" role="tablist" aria-multiselectable="true">
+     
+    </div>
+     <button type="button" class="btn btn-primary" id="add-room">add room</button>
+    </div>
+     <button type="button" class="btn btn-primary" id="create-scenario">save scenario</button>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/new_scenarios.js"></script>
+  </body>
+</html>

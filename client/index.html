@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="reset.css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<link  href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,bold" rel="stylesheet" type="text/css" >
+<link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:700' rel='stylesheet' type='text/css'>
+<link  href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:regular,bold" rel="stylesheet" type="text/css" >
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+
+
+<!--FOUNDATION CONTENT -->
+<link rel="stylesheet" href="css/foundation.css" />
+<link rel="stylesheet" href="css/newstyle.css" />
+<link rel="stylesheet" href="css/wfmi-style.css">
+<link rel="stylesheet" href="css/fontello.css" />
+
+<script src="js/vendor/modernizr.js"></script>
+</head>
+<body>
+
+<script>
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   
+   // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '977805288927762',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+
+  // Now that we've initialized the JavaScript SDK, we call 
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+     /* document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';*/
+    });
+    
+    FB.api(
+    "/me",
+    function (response) {
+      if (response && !response.error) {
+        $(".player-picture").attr("src","//graph.facebook.com/"+response.id+"/picture");
+        $(".player-name").html(response.name);
+      }
+    }
+);
+  }
+  
+  /* make the API call */
+
+  
+  /* make the API call */
+
+</script>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+
+
+
+<div class="row" id="wrap">
+  <div class="large-12 columns show-for-touch" style="padding:0px; max-width:none;">
+    <div class="row game-title-container">
+      <div class="small-12 columns">
+        <h1 class="game-title">Pathogenious</h1>
+      </div>
+    </div>
+  </div>
+  <div class="large-3 columns hide-for-touch">
+    <div class="off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+        <div class="row game-title-container">
+          <div class="large-9 columns">
+            <h3 class="game-title">Pathogenious</h3>
+          </div>
+          <div class="large-3 columns" id="notepad">
+            <a class="left-off-canvas-toggle" href="#" >
+                <h6>
+                  <i class="icon-edit"></i>
+                <h6>
+            </a>
+          </div>
+        </div>
+
+        <!-- Off Canvas Menu -->
+        <aside class="left-off-canvas-menu">
+          <!-- whatever you want goes here -->
+          <h6 id="notes-title">Known so far</h6>
+          <ul class="notes-list">
+            <li>Patient is very sick</li>
+            <li>Patient needs extreme help</li>
+            <li>Patient has trouble breathing</li>
+            <li>Early symptoms of hello</li>
+            <li>Patient is very sick</li>
+            <li>Patient needs extreme help</li>
+            <li>Patient has trouble breathing</li>
+            <li>Early symptoms of hello</li>
+          </ul>
+          <a class="exit-off-canvas"></a>
+        </aside>
+
+        <!-- main content goes here -->
+        <div class="row">
+          <div class="large-12 columns player-info">
+            <img class="player-picture thumb  sect-row" src="img/profile.jpg">
+            <h6 class="player-name thumb  sect-row"><b></b></h6>
+            <div class="row score-streak-container">
+              <div class="large-12 columns  sect-row">
+                <p class="player-score" id="score"></p>
+              </div>
+            </div>
+            <div class="row score-streak-container">
+              <div class="large-12 columns  sect-row">  
+                <p class="player-streak" id="streak"><i class="icon-fire"></i>2 days</p>
+              </div>
+            </div>
+            <div class="row sect-row">
+              <div id="eleminate" class="action-button">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- close the off-canvas menu -->
+        
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns" id="playButtonContainer">
+        <ul class="large-block-grid-1">
+          <li>
+            <ul class="large-block-grid-4" id="overallStats">
+              <li>
+                <span class="icon-tint"></span>
+                <p>23</p>
+              </li>
+
+              <li>
+                <i class="icon-i-cardiology"></i>
+                <p>56</p>
+              </li>
+
+              <li>
+                <i class="icon-i-neurology"></i>
+                <p>81</p>
+              </li>
+
+              <li>
+                <i class="icon-i-genetics"></i>
+                <p>20</p>
+              </li>
+            </ul>
+          </li>
+          <ul class="large-block-grid-2">
+            <li id="profileButton">
+              <a class="button success" href="profile.html"><i class="icon-chart-bar-1"></i></a>
+            </li>
+            <li>
+              <a class="button" onclick="startTour();">Tour</a>
+            </li>
+          </ul>
+          <li>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+            </fb:login-button>
+          </li>
+        </ul>   
+      </div>
+    </div>
+  </div>
+
+  <div class="large-1 columns">
+  </div>
+  <div class="large-8 columns game-play-screen">
+    <div class="row" id="topicInformation">
+      <div class="large-12 columns">
+        <h3 class="topic-name">
+          <i class=""></i>
+          GENETICS
+          <span class="info label question-level">Level 1</span>
+        </h3>
+      </div>
+    </div>
+    <div id="content">
+      <div id="inner">
+        <div class="left float-l">
+          <div class="row">
+            <div class="large-12 columns">
+              <h4 data-toggle="collapse" data-target="#ini" id="initial-description"><i class=" icon-plus"></i></i>Initial description</h4>
+              <p  class="collapse in" id="ini"> </p>
+              <div id="ini-choices"></div>
+              <br>
+              <h2 id="room-name"></h2>
+              <p id="room-text"></p>  
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns" id="roomChoicesContainer">
+              <h3 id="room-choices"></h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-12 columns">
+              <a id="skip" class="button warning">
+                Skip Question
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /header -->
+</div>
+<div class="row show-for-touch sect-row" id="profilePart">
+  <div class="small-6 columns">
+    <h6 id="notes-title">Known so far</h6>
+      <ul class="notes-list">
+        <li>Patient is very sick</li>
+        <li>Patient needs extreme help</li>
+        <li>Patient has trouble breathing</li>
+        <li>Early symptoms of hello</li>
+        <li>Patient is very sick</li>
+        <li>Patient needs extreme help</li>
+        <li>Patient has trouble breathing</li>
+        <li>Early symptoms of hello</li>
+      </ul>
+  </div>
+  <div class="small-6 columns">
+    <div class="row sect-row">
+      <div class="small-6 columns">
+        <img class="player-picture" src="">
+        <h5 class="player-name"></h5>
+        <h6 class="player-level"></h6>
+        
+        <div class="score-streak-container">
+          <p class="player-score" id="scoreTouch"></p>
+          <p class="player-streak" id="streakTouch"><i class="icon-fire"></i>2 days</p>
+        </div>
+      </div>
+      
+      
+      <div class="small-6 columns">
+        <div id="eleminate" class="action-button">
+        </div>
+      </div>
+    </div>
+    
+    <div class="row sect-row">
+      <ul class="small-block-grid-2">
+          <li>
+            <ul class="small-block-grid-4" id="overallStats">
+              <li>
+                <span class="icon-tint"></span>
+                <p>23</p>
+              </li>
+
+              <li>
+                <i class="icon-i-cardiology"></i>
+                <p>56</p>
+              </li>
+
+              <li>
+                <i class="icon-i-neurology"></i>
+                <p>81</p>
+              </li>
+
+              <li>
+                <i class="icon-i-genetics"></i>
+                <p>20</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul class="small-block-grid-2">
+              <li id="profileButton">
+                <a class="button success" href="profile.html"><i class="icon-chart-bar-1"></i></a>
+              </li>
+              <li>
+                <a class="button" onclick="startTour();">Tour</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+            </fb:login-button>
+          </li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+    <!-- Joy Ride -->
+<ol id="joyride-list" style="display:none;"data-joyride>
+  <li data-id="notepad" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev">
+    <h4>Your Notepad</h4>
+    <p>Here you will find all the notes of things you know so far regarding the case.</p>
+  </li>
+  <li data-id="score" data-button="Next" data-prev-text="Prev">
+    <h4>XP and Streak</h4>
+    <p>XP: Experiences you gained helping out with cases.</p>
+    <p>Streak: How many days have you been playing.</p>
+  </li>
+  <li data-id="overallStats" data-button="Next" data-prev-text="Prev">
+    <h4>Scenarios Solved</h4>
+    <p>This shows you the number of scenarios you have solved in each category.</p>
+  </li>
+  <li data-id="eleminate" data-button="Next" data-prev-text="Prev">
+    <h4>Action Button</h4>
+    <p>This is your Action Button. With this button you could move from room to room or eliminate choices while playing.</p>
+  </li>
+  <li data-id="profileButton" data-button="Next" data-prev-text="Prev">
+    <h4>Your Profile</h4>
+    <p>This is where you can go to your profile and check out your progress in each category.</p>
+  </li>
+  <li data-id="inner" data-button="Next" data-prev-text="Prev">
+    <h4>Scenarios and Choices</h4>
+    <p>Here you will go to different rooms and see different cases. You will be asked to give your input through choices that will be given to you.</p>
+  </li>
+  <li data-button="End" data-prev-text="Prev">
+    <h4>Tour Has Ended</h4>
+    <p>You could always come back to this tour whenever you feel like you need to remember something.</p>
+  </li>
+</ol>
+
+<script type='text/javascript' src='js/jquery.min.js'></script>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="js/core.js"></script>
+
+<!-- foundation js-->
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/foundation/foundation.joyride.js"></script>
+    
+    <script>
+      $(document).foundation();
+    </script>
+    <script>
+      function startTour(){
+        $(document).foundation( 
+        { joyride : 
+          { post_ride_callback : function() 
+              { } 
+          } 
+        }).foundation('joyride', 'start')
+      }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+
+
+  <!--FOUNDATION CONTENT -->
+  
+  <script src="js/vendor/modernizr.js"></script>
+  <script src="js/chartjs.min.js"></script>
+  
+  <!-- Important Owl stylesheet -->
+  <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
+     
+  <!-- Default Theme -->
+  <link rel="stylesheet" href="owl-carousel/owl.theme.css">
+     
+  <!--  jQuery 1.7+  -->
+  <script src="js/jquery-1.9.1.min.js"></script>
+     
+  <!-- Include js plugin -->
+  <script src="owl-carousel/owl.carousel.js"></script>
+  
+  <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/newstyle.css" />
+
+  <link rel="stylesheet" href="css/wfmi-style.css">
+  <link rel="stylesheet" href="css/fontello.css" />
+  
+  <script src="js/vendor/modernizr.js"></script>
+</head>
+
+<body>
+
+  <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // This is called with the results from from FB.getLoginStatus().
+    function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      console.log(response);
+      // The response object is returned with a status field that lets the
+      // app know the current login status of the person.
+      // Full docs on the response object can be found in the documentation
+      // for FB.getLoginStatus().
+      if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+        testAPI();
+      }
+      else if (response.status === 'not_authorized') {
+        // The person is logged into Facebook, but not your app.
+        document.getElementById('status').innerHTML = 'Please log ' +
+          'into this app.';
+      }
+      else {
+        // The person is not logged into Facebook, so we're not sure if
+        // they are logged into this app or not.
+        document.getElementById('status').innerHTML = 'Please log ' +
+          'into Facebook.';
+      }
+    }
+
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '977805288927762',
+        cookie: true,
+        xfbml: true,
+        version: 'v2.5'
+      });
+
+      // Now that we've initialized the JavaScript SDK, we call 
+      // FB.getLoginStatus().  This function gets the state of the
+      // person visiting this page and can return one of three states to
+      // the callback you provide.  They can be:
+      //
+      // 1. Logged into your app ('connected')
+      // 2. Logged into Facebook, but not your app ('not_authorized')
+      // 3. Not logged into Facebook and can't tell if they are logged into
+      //    your app or not.
+      //
+      // These three cases are handled in the callback function.
+
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+
+    };
+
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // Here we run a very simple test of the Graph API after login is
+    // successful.  See statusChangeCallback() for when this call is made.
+    function testAPI() {
+      console.log('Welcome!  Fetching your information.... ');
+      FB.api('/me', function(response) {
+        console.log('Successful login for: ' + response.name);
+        /* document.getElementById('status').innerHTML =
+           'Thanks for logging in, ' + response.name + '!';*/
+      });
+
+      FB.api(
+        "/me",
+        function(response) {
+          if (response && !response.error) {
+            $(".player-picture").attr("src", "//graph.facebook.com/" + response.id + "/picture?width=200&height=200");
+            $(".player-name").html(response.name);
+          }
+        }
+      );
+    }
+
+    /* make the API call */
+
+
+    /* make the API call */
+  </script>
+
+  <!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+  <div class="row">
+    <div class="large-12 columns">
+    </div>
+  </div>
+  <div class="row container">
+    <div class="large-3 columns player-info-web show-for-touch">
+      <div class="row">
+        <div class="small-4 columns">
+          <img class="player-picture" src="">
+        </div>
+        <div class="small-8 columns">
+          <h1 class="player-name"></h1>
+          <h4 class="player-level">Senior Resident</h4>
+
+          <div class="row" id="score-streak-container">
+            <div class="large-12 columns  sect-row">
+              <h6 class="player-score" id="score"></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns  sect-row">
+              <h6 class="player-streak" id="streak"><i class="icon-fire"></i>2 days</h6>
+            </div>
+          </div>
+
+          <h6 class="player-discription">Water, air, and cleanness are the chief articles in my pharmacy.</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="large-3 columns hide-for-touch">
+      <div class="row">
+        <div class="large-12 columns player-info">
+          <img class="player-picture" src="">
+          <h4 class="player-name"></h4>
+          <p class="player-level"></p>
+
+          <div class="row" id="score-streak-container">
+            <div class="large-12 columns  sect-row">
+              <p class="player-score" id="score"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns  sect-row">
+              <p class="player-streak" id="streak"><i class="icon-fire"></i>2 days</p>
+            </div>
+          </div>
+          <p class="player-discription">Water, air, and cleanness are the chief articles in my pharmacy.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-12 columns" id="playButtonContainer">
+          <ul class="large-block-grid-1">
+            <li>
+              <ul class="large-block-grid-4" id="overallStats">
+                <li>
+                  <i class="icon-i-genetics"></i>
+                  <p class="genetics-score">20</p>
+                </li>
+                <li>
+                  <i class="icon-i-cardiology"></i>
+                  <p class="cardiology-score">56</p>
+                </li>
+                <li>
+                  <i class="icon-i-neurology"></i>
+                  <p class="neurology-score">81</p>
+                </li>
+                <li>
+                  <span class="icon-tint"></span>
+                  <p class="bloodcells-score">23</p>
+                </li>
+
+
+
+
+
+
+              </ul>
+            </li>
+            <li>
+              <a class="button success" href="index.html"><i class="icon-hospital"></i>Back to The Hospital</a>
+            </li>
+            <li>
+              <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+              </fb:login-button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="large-1 columns">
+    </div>
+    <div class="large-8 columns player-stats">
+      <div class="row">
+        <h5 class="player-info-categories"><i class="icon-right-open"></i>Choose A Category to Start Playing</h5>
+        <div class="large-12 columns">
+          <ul class="large-block-grid-2 small-block-grid-1" id="playTopics">
+            <li>
+              <a class="button play-topic play-genetics">
+                <h3>
+                  <i class="icon-i-genetics"></i>Genetics
+                </h3>
+              </a>
+            </li>
+            
+            <li>
+              <a class="button play-topic play-cardio">
+                <h3>
+                  <i class="icon-i-cardiology"></i>Cardiovascular
+                </h3>
+              </a>
+            </li>
+            <li>
+              <a class="button play-topic play-cns">
+                <h3>
+                  <i class="icon-i-neurology"></i>CNS
+                </h3>
+              </a>
+            </li>
+            <li>
+              <a class="button play-topic play-bloodcells">
+                <h3>
+                  <i class="icon-tint"></i>Blood Cells
+                </h3>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="large-12 columns">
+          <h5 class="player-info-categories">
+            <i class="icon-book"></i>
+            Progress
+          </h5>
+        </div>
+        <dic class="row">
+          <div class="large-12 columns">
+            <div><h5><i class="icon-i-genetics"></i>Genetics <span class="info label level genetics-level"></span></h5>
+            </div>
+            <div class="progress round">
+              <span class="meter success" id="geneticsMeter"></span>
+            </div>
+            <div><h5><i class="icon-i-cardiology"></i>Cardiovascular <span class="info label level cardio-level"></span></h5></div>
+            <div class="progress round">
+              <span class="meter success" id="carioMeter"></span>
+            </div>
+            <div><h5><i class="icon-i-neurology"></i>CNS <span class="info label level cns-level"></span></h5></div>
+            <div class="progress round">
+              <span class="meter success" id="cnsMeter"></span>
+            </div>
+            <div><h5><i class="icon-tint"></i>Blood Cells <span class="info label level bloodcells-level"></span></h5></div>
+            <div class="progress round">
+              <span class="meter success" id="bloodMeter"></span>
+            </div>
+          </div>
+        </dic>
+      </div>
+      <h5 class="player-info-categories"><i class="icon-trophy"></i>Awards</h5>
+      <div id="owl-example" class="owl-carousel">
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>STREAK BEAST!</p>
+        </div>
+
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>LIFE SAVER</p>
+        </div>
+
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>MASTER PHARMACIST</p>
+        </div>
+
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>1 STREAK</p>
+        </div>
+
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>MAXED OUT</p>
+        </div>
+        
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>STREAK BEAST!</p>
+        </div>
+
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>LIFE SAVER</p>
+        </div>
+
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>MASTER PHARMACIST</p>
+        </div>
+
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>1 STREAK</p>
+        </div>
+
+        <div>
+          <img src="img/trophy-locked.ico">
+          <p>MAXED OUT</p>
+        </div>
+      </div>
+      <h5 class="player-info-categories"><i class="icon-chart-bar-1"></i>Stats</h5>
+      <div>
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+      <h5></h5>
+    </div>
+  </div>
+
+  <div class="row show-for-touch">
+    <div class="small-12 columns" id="playButtonContainer">
+      <ul class="small-block-grid-2">
+        <li>
+          <ul class="large-block-grid-4" id="overallStats">
+            <li>
+              <span class="icon-tint"></span>
+              <p>23</p>
+            </li>
+
+            <li>
+              <i class="icon-i-cardiology"></i>
+              <p>56</p>
+            </li>
+
+            <li>
+              <i class="icon-i-neurology"></i>
+              <p>81</p>
+            </li>
+
+            <li>
+              <i class="icon-i-genetics"></i>
+              <p>20</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="button success" href="index.html">
+            <h1 class="large-buttons-touch">
+              <i class="icon-hospital"></i>Back to The Hospital
+            </h1>
+          </a>
+        </li>
+        <li>
+          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+          </fb:login-button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+  function samurai(x,y,z,w) {
+  
+    var data = {
+      labels: ["Genetics", "Cardiovascular", "CNS", "Blood cells"],
+      datasets: [{
+        label: "My First dataset",
+        fillColor: "rgba(69, 172, 139, 0.2)",
+        strokeColor: "rgba(69, 172, 139, 1)",
+        pointColor: "rgba(69, 172, 139, 1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: [x, y, z, w]
+      }]
+    };
+
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    Chart.defaults.global = {
+      // Boolean - Whether to animate the chart
+      animation: true,
+
+      // Number - Number of animation steps
+      animationSteps: 60,
+
+      // String - Animation easing effect
+      // Possible effects are:
+      // [easeInOutQuart, linear, easeOutBounce, easeInBack, easeInOutQuad,
+      //  easeOutQuart, easeOutQuad, easeInOutBounce, easeOutSine, easeInOutCubic,
+      //  easeInExpo, easeInOutBack, easeInCirc, easeInOutElastic, easeOutBack,
+      //  easeInQuad, easeInOutExpo, easeInQuart, easeOutQuint, easeInOutCirc,
+      //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
+      //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
+      //  easeOutElastic, easeInCubic]
+      animationEasing: "easeOutQuart",
+
+      // Boolean - If we should show the scale at all
+      showScale: true,
+
+      // Boolean - If we want to override with a hard coded scale
+      scaleOverride: false,
+
+      // ** Required if scaleOverride is true **
+      // Number - The number of steps in a hard coded scale
+      scaleSteps: null,
+      // Number - The value jump in the hard coded scale
+      scaleStepWidth: null,
+      // Number - The scale starting value
+      scaleStartValue: null,
+
+      // String - Colour of the scale line
+      scaleLineColor: "rgba(0,0,0,.1)",
+
+      // Number - Pixel width of the scale line
+      scaleLineWidth: 1,
+
+      // Boolean - Whether to show labels on the scale
+      scaleShowLabels: true,
+
+      // Interpolated JS string - can access value
+      scaleLabel: "<%=value%>",
+
+      // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
+      scaleIntegersOnly: true,
+
+      // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+      scaleBeginAtZero: false,
+
+      // String - Scale label font declaration for the scale label
+      scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+      // Number - Scale label font size in pixels
+      scaleFontSize: 12,
+
+      // String - Scale label font weight style
+      scaleFontStyle: "normal",
+
+      // String - Scale label font colour
+      scaleFontColor: "#666",
+
+      // Boolean - whether or not the chart should be responsive and resize when the browser does.
+      responsive: true,
+
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio: true,
+
+      // Boolean - Determines whether to draw tooltips on the canvas or not
+      showTooltips: true,
+
+      // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
+      customTooltips: false,
+
+      // Array - Array of string names to attach tooltip events
+      tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+
+      // String - Tooltip background colour
+      tooltipFillColor: "rgba(0,0,0,0.8)",
+
+      // String - Tooltip label font declaration for the scale label
+      tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+      // Number - Tooltip label font size in pixels
+      tooltipFontSize: 14,
+
+      // String - Tooltip font weight style
+      tooltipFontStyle: "normal",
+
+      // String - Tooltip label font colour
+      tooltipFontColor: "#fff",
+
+      // String - Tooltip title font declaration for the scale label
+      tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+      // Number - Tooltip title font size in pixels
+      tooltipTitleFontSize: 14,
+
+      // String - Tooltip title font weight style
+      tooltipTitleFontStyle: "bold",
+
+      // String - Tooltip title font colour
+      tooltipTitleFontColor: "#fff",
+
+      // Number - pixel width of padding around tooltip text
+      tooltipYPadding: 6,
+
+      // Number - pixel width of padding around tooltip text
+      tooltipXPadding: 6,
+
+      // Number - Size of the caret on the tooltip
+      tooltipCaretSize: 8,
+
+      // Number - Pixel radius of the tooltip border
+      tooltipCornerRadius: 6,
+
+      // Number - Pixel offset from point x to tooltip edge
+      tooltipXOffset: 10,
+
+      // String - Template string for single tooltips
+      tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+
+      // String - Template string for multiple tooltips
+      multiTooltipTemplate: "<%= value %>",
+
+      // Function - Will fire on animation progression.
+      onAnimationProgress: function() {},
+
+      // Function - Will fire on animation completion.
+      onAnimationComplete: function() {},
+
+      //Boolean - Whether to show lines for each scale point
+      scaleShowLine: true,
+
+      //Boolean - Whether we show the angle lines out of the radar
+      angleShowLineOut: true,
+
+      //Boolean - Whether to show labels on the scale
+      scaleShowLabels: false,
+
+      // Boolean - Whether the scale should begin at zero
+      scaleBeginAtZero: true,
+
+      //String - Colour of the angle line
+      angleLineColor: "rgba(0,0,0,.1)",
+
+      //Number - Pixel width of the angle line
+      angleLineWidth: 1,
+
+      //String - Point label font declaration
+      pointLabelFontFamily: "'Arial'",
+
+      //String - Point label font weight
+      pointLabelFontStyle: "normal",
+
+      //Number - Point label font size in pixels
+      pointLabelFontSize: 10,
+
+      //String - Point label font colour
+      pointLabelFontColor: "#666",
+
+      //Boolean - Whether to show a dot for each point
+      pointDot: true,
+
+      //Number - Radius of each point dot in pixels
+      pointDotRadius: 3,
+
+      //Number - Pixel width of point dot stroke
+      pointDotStrokeWidth: 1,
+
+      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+      pointHitDetectionRadius: 20,
+
+      //Boolean - Whether to show a stroke for datasets
+      datasetStroke: true,
+
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth: 2,
+
+      //Boolean - Whether to fill the dataset with a colour
+      datasetFill: true,
+
+      //String - A legend template
+      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+    }
+  
+
+    var myRadarChart = new Chart(ctx).Radar(data, Chart.defaults.global);
+  }
+  </script>
+  
+  <script>
+        $("#owl-example").owlCarousel({
+     
+        // Most important owl features
+        items : 5,
+        itemsCustom : false,
+        itemsDesktop : [1199,4],
+        itemsDesktopSmall : [980,3],
+        itemsTablet: [768,2],
+        itemsTabletSmall: false,
+        itemsMobile : [479,1],
+        singleItem : false,
+        itemsScaleUp : false,
+     
+        //Basic Speeds
+        slideSpeed : 200,
+        paginationSpeed : 800,
+        rewindSpeed : 1000,
+     
+        //Autoplay
+        autoPlay : false,
+        stopOnHover : false,
+     
+        // Navigation
+        navigation : false,
+        navigationText : ["prev","next"],
+        rewindNav : true,
+        scrollPerPage : false,
+     
+        //Pagination
+        pagination : true,
+        paginationNumbers: false,
+     
+        // Responsive 
+        responsive: true,
+        responsiveRefreshRate : 200,
+        responsiveBaseWidth: window,
+     
+        // CSS Styles
+        baseClass : "owl-carousel",
+        theme : "owl-theme",
+     
+        //Lazy load
+        lazyLoad : false,
+        lazyFollow : true,
+        lazyEffect : "fade",
+     
+        //Auto height
+        autoHeight : false,
+     
+        //JSON 
+        jsonPath : false, 
+        jsonSuccess : false,
+     
+        //Mouse Events
+        dragBeforeAnimFinish : true,
+        mouseDrag : true,
+        touchDrag : true,
+     
+        //Transitions
+        transitionStyle : false
+     
+        //Callbacks
+     
+    })
+  </script>
+  <script type='text/javascript' src='js/jquery.min.js'></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="js/core2.js"></script>
+
+  <!-- foundation js-->
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript" src="js/profile.js"></script>
+</body>
+
+</html>

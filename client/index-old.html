@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="reset.css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<link  href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,bold" rel="stylesheet" type="text/css" >
+<link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:700' rel='stylesheet' type='text/css'>
+<link  href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:regular,bold" rel="stylesheet" type="text/css" >
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+
+</head>
+<body>
+<div id="wrap">
+  <div id="header">
+    <div id="logo">
+      <h1>HealthCity</h1>
+    </div>
+    <ul id="nav">
+      <li><a href="#">Profile</a></li>
+    </ul>
+  </div>
+   <div id="score">score so far</div>
+  <!-- /header -->
+  <div id="content">
+    <div id="inner">
+      <div class="left float-l">
+       
+          <h2 data-toggle="collapse" data-target="#ini" >Initial description</h2>
+        <div  class="collapse in" id="ini"> </div>
+        <div id="ini-choices"></div>
+        <h2 id="room-name"></h2>
+        <p id="room-text"></p>
+        
+        <div id="room-choices"></div>
+        <div id="eleminate"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script type='text/javascript' src='js/jquery.min.js'></script>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="js/core.js"></script>
+</body>
+</html>

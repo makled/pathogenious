@@ -1,0 +1,15 @@
+{
+  "name": "healt-city",
+  "version": "0.0.1",
+  "description": "my first socket.io app",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^5.0.0-alpha.2",
+    "mongodb": "^2.1.0-alpha",
+    "mongoose": "^4.1.1",
+    "morgan": "*",
+    "nodemailer": "1.0",
+    "nodemailer-smtp-transport": "^1.0.3",
+    "socket.io": "*"
+  }
+}

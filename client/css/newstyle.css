@@ -1,0 +1,264 @@
+@font-face {
+    font-family: 'Element';
+    src: url('fonts/Organic_Elements.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'Hands';
+    src: url('fonts/HANDM___.TTF') format('truetype');
+}
+
+body{
+	background-color:#ddd;
+}
+
+.row .row{
+	margin:0px;
+}
+
+.game-title-container{
+	background-color:#00AF33;
+}
+
+.game-title{
+	color:white;
+	font-family:Element;
+}
+
+
+#notepad{
+	border-left:1px solid white;
+}
+
+#notepad h6{
+	text-align:center;
+	color:white;
+	margin:16px auto;
+}
+
+.notes-list{
+	width:200px;
+}
+
+#notes-title{
+	font-family:Hands;
+	text-align:center;
+	border-bottom:1px solid #333;
+}
+
+.large-buttons-touch{
+	color:white;
+}
+
+.notes-list li{
+	list-style-type:circle;
+	font-family:Hands;
+}
+
+.full-width{
+	max-width:none;
+}
+
+.player-info-categories{
+	color: #339999;
+	direction: rtl;
+	border-bottom: 1px solid #339999;
+}
+
+.owl-carousel div{
+	text-align:center;
+}
+
+.owl-carousel img{
+	width:75%;
+}
+
+.owl-carousel p{
+	text-align:center;
+}
+
+
+.player-level{
+	text-decoration:capitalize;
+	font-style: italic;
+}
+
+.level{
+	float:right;
+}
+
+.question-level{
+	margin:10px auto;
+	float:right;
+}
+
+.player-score{
+	margin:0px;
+	float:none;
+	font-style: bolder;
+	color:#339999;
+}
+
+.player-streak{
+	margin:0px;
+}
+
+#score{
+	float:none;
+}
+
+.player-info-web{
+	margin-left:0px;
+	background-color:white;
+}
+
+.player-info,
+.player-stats,
+.game-play-screen{
+	background-color:white;
+}
+
+.play{
+    width: 0;
+    height: 0;
+    border-top: 24px solid transparent;
+    border-left: 50px solid #339999;
+    border-bottom: 24px solid transparent;
+}
+
+#playButtonContainer{
+	margin:20px auto;
+	padding-top:20px;
+	background-color:white;
+}
+
+#room-name{
+	font-family:Element;
+	color:#399;
+	text-transform:capitalize;
+	border-bottom:2px solid #399;
+}
+
+.topic-name{
+	color:#339999;
+}
+
+#topicInformation{
+	border-bottom:2px solid #399;
+}
+
+.play-topic{
+	height:100%;
+	width:100%;
+}
+
+.play-topic h3{
+	color:white;
+}
+
+#wrap{
+	background-image:none;
+	color:initial;
+	width:initial;
+	margin:auto;
+}
+
+#initial-description{
+	color:#339999 !important;
+}
+
+.button:hover{
+	text-decoration:none;
+}
+
+.player-picture.thumb{
+	border-radius:50px;
+	width:50px;
+}
+
+.player-name.thumb{
+	text-align:center;
+	font-size: 0.8em;
+}
+
+.thumb{
+	display:inline-block;
+}
+
+.score-streak-container{
+	margin-top:10px;
+}
+
+.score-streak-container p{
+	text-align:left;
+}
+
+#streak,
+#streakTouch{
+	color:#00AF33;
+	float:left;	
+}
+
+#streak i,
+#streakTouch i{
+	color:#e74c3c;
+}
+
+.choice{
+	width:100%;
+}
+
+#roomChoicesContainer{
+	margin-top:50px;
+}
+
+.eleminate{
+	background-color:#e67e22;
+}
+
+.eleminate:hover{
+	background-color:#d35400;
+}
+
+.left-off-canvas-menu{
+	background-image:url('../img/notepad.jpg');
+}
+
+.sect-row{
+	margin:5px auto !important;
+}
+
+#overallStats li{
+	color:#8e44ad;
+	padding-bottom:0px;
+	text-align: center;
+}
+
+.button{
+	font-size:14px
+}
+
+#facebook{
+	padding-left: inherit;
+}
+
+/*ungamified*/
+#notesContainer{
+	background-color:white;
+}
+
+#profilePart{
+	background-color:white;
+}
+
+#profilePart p{
+	font-size:18px;
+}
+
+.show-for-small p{
+	font-size:18px;
+}
+
+.show-for-small a{
+	font-size:20px
+}
