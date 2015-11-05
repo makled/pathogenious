@@ -454,7 +454,7 @@ io.on('connection', function (socket) {
                   
                   Token.create(token,function(error,t){
                       transporter.sendMail({
-                    from: 'pathogenious@pathogenious.com',
+                    from: 'pathogenious@pathogenious.me',
                     to:u.userName+"@guc.edu.eg",
                   subject: 'verify pathogenious',
                   text: 'welcome '+user.displayName+' !!\n to verify your mail and unlock your account just click the following link : \n https://masters-new-lordvoldmort.c9.io/verify/'+t._id
