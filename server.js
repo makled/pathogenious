@@ -91,14 +91,15 @@ io.on('connection', function (socket) {
       console.log("disconnected", socket.id);
     });
     
-    socket.on('client.login', function (info) {
+    socket.on('client.login.gamified', function (info) {
         Session.find({"user":info.id},function(err,res){
             if(err) return console.log("error finding sessions after login ",err);
             if(res.length==0){
                var s={
                    user:info.id,
                    login:[Date.now()],
-                   scoreIn:[info.score]
+                   scoreIn:[info.score],
+                   gamified:true
                };
                Session.create(s,function(err, res) {
                    if(err) return console.log("error creating session for new login ",err);
@@ -135,8 +136,75 @@ io.on('connection', function (socket) {
       
     });
     
-    socket.on('client.logout',function(id){
+    socket.on('client.logout.gamified',function(info){
         console.log("entering session update.....");
+        Session.find({"user":info.id},function(err,res){
+            if(err) return console.log("error finding session after logout ",err);
+            if(res.length==0)
+            console.log("no user found after logout");
+            else
+            {
+                res[0].logout.push(Date.now());
+                var dur=(res[0].logout[res[0].logout.length-1]-res[0].login[res[0].logout.length-1])/1000;
+                res[0].durationHours.push(Math.floor(dur/3600));
+                dur=dur%3600;
+                res[0].durationMinutes.push(Math.floor(dur/60));
+                res[0].durationSeconds.push(dur%60);
+                res[0].scoreOut.push(info.score);
+                res[0].scores.push(info.score-res[0].scoreIn[res[0].scoreIn.length-1]);
+                res[0].save(function(err){
+                    if(err) return console.log("error saving session after logout ",err)
+                    console.log("user session updated after logout");
+                })
+            }
+        })
+    });
+    
+    socket.on('client.login.ung', function (id) {
+        Session.find({"user":id},function(err,res){
+            if(err) return console.log("error finding sessions after login ",err);
+            if(res.length==0){
+               var s={
+                   user:id,
+                   login:[Date.now()],
+                   gamified:false
+               };
+               Session.create(s,function(err, res) {
+                   if(err) return console.log("error creating session for new login ",err);
+                   console.log("session created for new ung user");
+               });
+            }
+            else
+            {
+                res[0].login.push(Date.now());
+                res[0].save(function(err){
+                    if(err) return console.log("error saving session after login ",err);
+                    console.log("session login updated for existing user ");
+                });
+            }
+        })
+   /*   User.findById(user._id,function(err,user){
+            if(err) return console.log(err);
+            if(user) {
+                var s={
+                    user:id,
+                    login:Date.now()
+                }
+                Session.create(s,function(err,sess){
+                    if(err) return console.log("session creation error ",err);
+                    user.socketId=socket.id;
+                    user.save(function(err){
+                        if(err) return console.log("user saving error ",err);
+                        socket.emit("successful.login", user);
+                    });
+                });
+            }
+        });*/
+      
+    });
+    
+    socket.on('client.logout.ung',function(id){
+        console.log("entering session update ung.....");
         Session.find({"user":id},function(err,res){
             if(err) return console.log("error finding session after logout ",err);
             if(res.length==0)
@@ -151,11 +219,11 @@ io.on('connection', function (socket) {
                 res[0].durationSeconds.push(dur%60);
                 res[0].save(function(err){
                     if(err) return console.log("error saving session after logout ",err)
-                    console.log("user session updated after logout");
+                    console.log("ung user session updated after logout");
                 })
             }
         })
-    })
+    });
 
     socket.on('scenario.create', function (scenario) {
       
@@ -263,69 +331,102 @@ io.on('connection', function (socket) {
                   // console.log("topic is "+info.topic);
               //  var scen=res[Math.floor(toGet)];
               if(info.level>1){
-                var b=  checkFull(ids,res,lv);
-                if(b==false){
-                    var found=false ;
-                    var rando;
-                    for(var i=0 ; i < res.length && found==false ; i++){
-                         rando = Math.floor(Math.random() * (res.length));
-                         if(ids.indexOf(res[rando])==-1)
-                         found=true;
-                    }
-                    scen=res[rando];
-                    repeated=ids.indexOf(scen._id)>-1?true:false;
-                }
-                else{
-                    var lv2;
-                    if(lv==2)
-                    lv2=3;
-                    else
-                    lv2=2;
-                    Scenario.find({"lvl":lv2},function(err, res2) {
-                        if(err) return console.log("error getting scenarios after full randomization ",err);
-                        var b2=checkFull(ids,res2,lv2);
-                        if(b==false)
-                        {
-                        var found=false ;
-                    var rando2;
-                    for(var i=0 ; i < res2.length && found==false ; i++){
-                         rando2 = Math.floor(Math.random() * (res2.length));
-                         if(ids.indexOf(res2[rando2])==-1)
-                         found=true;
-                    }
-                    scen=res[rando2];
-                    repeated=ids.indexOf(scen._id)>-1?true:false;;
-                    }
-                    else
-                    {
-                       Scenario.find({"lvl":1},function(err,res3){
-                           if(err) return console.log("error getting scenarions lvl 1 after randomization ",err);
-                            var found=false ;
-                    var rando3=-1;
-                    for(var i=0 ; i < res3.length && found==false ; i++){
-                         rando3 = Math.floor(Math.random() * (res3.length));
-                         if(ids.indexOf(res2[rando2])==-1)
-                         found=true;
-                         else rando3=-1;
-                    }
-                    scen=rando==-1?res3[rando3]:res3[res3.length/2];
-                    repeated=ids.indexOf(scen._id)>-1?true:false;;
-                       }) 
-                    }
-                    })
-                }
+                // var b=  checkFull(ids,res,lv);
+                // if(b==false){
+                //     console.log("entered finding step 1");
+                //     var found=false ;
+                //     var rando=0;
+                //     for(var i=0 ; i < res.length && found==false ; i++){
+                //          rando = Math.floor(Math.random() * (res.length));
+                //          if(ids.indexOf(res[rando])==-1)
+                //          found=true;
+                        
+                //     }
+                //     scen=res[rando];
+                //     repeated=ids.indexOf(scen._id)>-1?true:false;
+                //     console.log("scenario from step 1 is ",typeof scen ==="undefined");
+                // }
+                // else{
+                //     var lv2;
+                //     if(lv==2)
+                //     lv2=3;
+                //     else
+                //     lv2=2;
+                //     Scenario.find({"lvl":lv2},function(err, res2) {
+                //         if(err) return console.log("error getting scenarios after full randomization ",err);
+                //         var b2=checkFull(ids,res2,lv2);
+                //         if(b2==false)
+                //         {
+                //             console.log("entered step 2");
+                //         var found2=false ;
+                //     var rando2=0;
+                //     for(var i=0 ; i < res2.length && found2==false ; i++){
+                //          rando2 = Math.floor(Math.random() * (res2.length));
+                //          if(ids.indexOf(res2[rando2])==-1)
+                //          found2=true;
+                //     }
+                //     scen=res2[rando2];
+                //     repeated=ids.indexOf(scen._id)>-1?true:false;
+                //     console.log("scenario from step 2 is ",typeof scen ==="undefined");
+                //     }
+                //     else
+                //     {
+                //         console.log("entered step 3");
+                //       Scenario.find({"lvl":1},function(err,res3){
+                //           if(err) return console.log("error getting scenarions lvl 1 after randomization ",err);
+                //             var found3=false ;
+                //     var rando3=0;
+                //     for(var i=0 ; i < res3.length && found3==false ; i++){
+                //          rando3 = Math.floor(Math.random() * (res3.length));
+                //          if(ids.indexOf(res3[rando3])==-1)
+                //          found3=true;
+                         
+                //     }
+                //     scen=res3[rando3];
+                //     repeated=ids.indexOf(scen._id)>-1?true:false;
+                //     console.log("scenario from step 3 is ",typeof scen === "undefined");
+                //       }) 
+                //     }
+                //     })
+                // }
+                Scenario.find({"topic":info.topic},function(err,result){
+                    if(err) return console.log("error getting scenarios for high lvl gamified ",err);
+                    var found3=false;
+                    var rando3=0;
+                     for(var i=0 ; i < result.length && found3==false ; i++){
+                          rando3 = Math.floor(Math.random() * (result.length));
+                         if(ids.indexOf(result[rando3])==-1)
+                         found3=true;
+                         
+                     }
+                     scen=result[rando3];
+                     repeated=ids.indexOf(scen._id)>-1?true:false;
+                     console.log("scenario from big step is ",typeof scen === "undefined");
+                })
               }
               else{
+                  console.log("entered base step");
                    var toGet = Math.random() * (res.length);
                    console.log("topic is "+info.topic);
                  scen=res[Math.floor(toGet)];
                  repeated=ids.indexOf(scen._id)>-1?true:false;
+                 console.log("scenario from base step is ",typeof scen ==="undefined");
               }
+              
+               if(!scen)
+               {
+                  var toGet = Math.random() * (res.length);
+                   console.log("topic is "+info.topic);
+                 scen=res[Math.floor(toGet)];
+                 repeated=ids.indexOf(scen._id)>-1?true:false;
+                 console.log("scenario from fail step is ",typeof scen === "undefined"); 
+               }
                
                 var send={
                     scenario:scen,
                     repeated:repeated
                 };
+                console.log("here is the final send ",send);
                 socket.emit("receive.possible.scenario.gamified",send);
             });
             
@@ -586,7 +687,8 @@ io.on('connection', function (socket) {
     });
     
     socket.on("update.player.ung",function(info) {
-       User.find({"_id":info.id},function(err, users) {
+        console.log("info received from update ung player ",info);
+       User.find({"_id":info.user},function(err, users) {
            if(err) console.log("error getting player to update non gamified ",err)
            var toSet;
            if(info.topic=="Genetics"){
@@ -609,10 +711,13 @@ io.on('connection', function (socket) {
                    correctScenariosGenetics:users[0].correctScenariosGenetics+1
                }
            }
-          User.update({"_id":info.id},{$set:toSet},function(err,response){
+           console.log("here is the toSet of the ung player ",toSet);
+           console.log("here is the id of the ung player to send back ",users[0]._id);
+          User.update({"_id":users[0]._id},{$set:toSet},function(err,response){
               if(err) return console.log("error updating ungamified user ",err);
-              User.find({"_id":info.id},function(err,users){
+              User.find({"_id":users[0]._id},function(err,users){
                   if(err) console.log("error finding ung user for the last time after update ",err);
+                  console.log("here is the player to send back to the ung player ",users[0]);
                   socket.emit("update.finished.ung",users[0]);
               })
           })

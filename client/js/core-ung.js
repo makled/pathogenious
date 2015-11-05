@@ -7,8 +7,10 @@ var currentUser;
 var running=false;
 $(function() {
     
-//     if(!sessionStorage.pathogenioususer)
-//     window.location.replace("login.html");
+     if(!sessionStorage.pathogenioususer)
+    window.location.replace("login.html");
+    else if((JSON.parse(sessionStorage.pathogenioususer)).gamified=="true")
+    window.location.reload("login.html");
 //     else if(!sessionStorage.pathogenioustopic)
 //     {
   
@@ -25,6 +27,7 @@ $(function() {
 //      //   socket.emit("get.this.scenario",toSend);
 //     }*/
 //     else
+else
 {
        currentUser=JSON.parse(sessionStorage.pathogenioususer);
        loadInfo();
@@ -33,12 +36,14 @@ $(function() {
 });
 
 socket.on('connect', function() {
- socket.emit('client.login',(JSON.parse(sessionStorage.pathogenioususer))._id);
+    console.log("sending login update event");
+ socket.emit('client.login.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
 });
 
 $(window).on('unload',function(){
+    console.log("sending logout update event");
   
-    socket.emit('client.logout',(JSON.parse(sessionStorage.pathogenioususer))._id);
+    socket.emit('client.logout.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
 })
 function loadInfo(){
   //  var pathogenioususer = JSON.parse(sessionStorage.pathogenioususer);
@@ -53,23 +58,23 @@ function loadInfo(){
  //   $(".rank").html("rank "+r);
 }
 
-socket.on("receive.this.scenario",function(info){
-    currentScenario=info.scenario;
-    topic=sessionStorage.currentScenarioTopic;
-    caseScore=sessionStorage.currentScenarioScore;
-     $(".player-score").html("<b class=''>Case Score </b>"+caseScore+"");
-     position=sessionStorage.currentScenarioPosition;
-    if (position < currentScenario.rooms.length) {
+// socket.on("receive.this.scenario",function(info){
+//     currentScenario=info.scenario;
+//     topic=sessionStorage.currentScenarioTopic;
+//     caseScore=sessionStorage.currentScenarioScore;
+//      $(".player-score").html("<b class=''>Case Score </b>"+caseScore+"");
+//      position=sessionStorage.currentScenarioPosition;
+//     if (position < currentScenario.rooms.length) {
             
-            renderRoom(currentScenario.rooms[position]);
+//             renderRoom(currentScenario.rooms[position]);
            
-        }
-        else if(position<currentScenario.rooms.length+currentScenario.end.length){
+//         }
+//         else if(position<currentScenario.rooms.length+currentScenario.end.length){
             
-            renderRoom(currentScenario.end[position-currentScenario.rooms.length]);
+//             renderRoom(currentScenario.end[position-currentScenario.rooms.length]);
            
-        }
-});
+//         }
+// });
 
 function renderRoom(room) {
 
@@ -280,6 +285,7 @@ function renderChoices(room) {
 }
 
 socket.on("update.finished.ung",function(user){
+    console.log("user from  updated event is ",user);
     sessionStorage.pathogenioususer=JSON.stringify(user);
   /*  if(playerLevel==1&&playerScore+caseScore>1000)
     {
@@ -387,6 +393,7 @@ $(".play-genetics").on("click",function(){
     else{
         running=true;
     topic="Genetics";
+    sessionStorage.pathogenioustopic="Genetics";
     $("#topic-name").html("Genetics");
     socket.emit("get.possible.scenario.ung","Genetics");
     }
@@ -413,6 +420,7 @@ $(".play-cardio").on("click",function(){
     
     running=true;
      topic="CardioVascular";
+     sessionStorage.pathogenioustopic="Cardiovascular";
     $("#topic-name").html("Cardiovascular");
     socket.emit("get.possible.scenario.ung","Cardiovascular");
     }
@@ -439,6 +447,7 @@ $(".play-cns").on("click",function(){
     {
     running=true;
      topic="CNS";
+     sessionStorage.pathogenioustopic="CNS";
     $("#topic-name").html("CNS");
     socket.emit("get.possible.scenario.ung","CNS");
     }
@@ -465,6 +474,7 @@ $(".play-bloodcells").on("click",function(){
     {
         running=true;
      topic="BloodCells";
+     sessionStorage.pathogenioustopic="BloodCells";
     $("#topic-name").html("BloodCells");
     socket.emit("get.possible.scenario.ung","BloodCells");
     }
@@ -472,6 +482,6 @@ $(".play-bloodcells").on("click",function(){
 
 socket.on("receive.possible.scenario.ung",function(scenario){
     currentScenario=scenario;
-     document.getElementById("skip").style.visibility = "visible";
+     document.getElementById("skip").style.display = "inherit";
     renderRoom(scenario.ini);
 })

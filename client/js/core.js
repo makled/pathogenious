@@ -69,12 +69,16 @@ socket.on('connect', function() {
         id:(JSON.parse(sessionStorage.pathogenioususer))._id,
         score:(JSON.parse(sessionStorage.pathogenioususer)).totalScore
     };
- socket.emit('client.login',info);
+ socket.emit('client.login.gamified',info);
 });
 
 $(window).on('unload',function(){
+    var info={
+        id:(JSON.parse(sessionStorage.pathogenioususer))._id,
+        score:(JSON.parse(sessionStorage.pathogenioususer)).totalScore
+    };
   
-    socket.emit('client.logout',(JSON.parse(sessionStorage.pathogenioususer))._id);
+    socket.emit('client.logout.gamified',info);
 })
 
 socket.on("receive.possible.scenario.gamified",function(send){
@@ -85,11 +89,42 @@ socket.on("receive.possible.scenario.gamified",function(send){
        swal("Repeated Scenario","You solved this scenario before . You can still resolve it to revise what you have done . However , you wont get any score by resolving it . You can skip solving it at any time by clicking on the skip scenario button ","warning");
        
    }
+//   else if(!currentScenario)
+//   {
+//       currentUser=JSON.parse(sessionStorage.pathogenioususer);
+//         if(sessionStorage.pathogenioustopic=="Genetics")
+//         {
+//         playerLevel=currentUser.geneticsLevel;
+//         playerScore=currentUser.geneticsScore;
+//         }
+//         else if(sessionStorage.pathogenioustopic=="Cardiovascular")
+//         {
+//         playerLevel=currentUser.cardioLevel;
+//         playerScore=currentUser.cardioScore;
+//         }
+//         else if(sessionStorage.pathogenioustopic=="CNS")
+//         {
+//         playerLevel=currentUser.cnsLevel;
+//         playerScore=currentUser.cnsScore;
+//         }
+//         else if(sessionStorage.pathogenioustopic=="BloodCells")
+//         {
+//         playerLevel=currentUser.bloodCellsLevel;
+//         playerScore=currentUser.bloodCellsScore;
+//         }
+//         var info={
+//             level:playerLevel,
+//             id:currentUser._id,
+//             topic:sessionStorage.pathogenioustopic
+//         };
+//   return  socket.emit("get.possible.scenario.gamified",info);
+//   }
+   
    else  if(currentScenario.lvl>playerLevel)
    swal("Higher level scenario","This scenario is a bit higher than your level in this topic . you will get extra points for each correct answer . If you wanna skip it , you can click the skip button at any time but your score wont be counted if you didn't finish the scenario !!","warning");
    else
    document.getElementById("skip").style.visibility = "hidden";
-   console.log("current level "+playerLevel+" And the scenario level "+currentScenario.lvl);
+  // console.log("current level "+playerLevel+" And the scenario level "+currentScenario.lvl);
    if(playerLevel==1)
    {
        if(currentScenario.lvl==1)
