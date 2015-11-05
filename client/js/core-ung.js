@@ -36,7 +36,9 @@ else
     }
 });
 
-
+socket.on('connect', function() {
+   socket.emit('client.login.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
+});
 $(window).on('unload',function(){
   
     socket.emit('client.logout.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
