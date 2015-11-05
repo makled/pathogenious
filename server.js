@@ -50,7 +50,7 @@ router.get('/verify/:id', function (req, res, err) {
               u.verified=true;
               u.save(function(err){
                   if(err) return console.log(err);
-                   res.redirect('https://pathogenious.me/reg_complete.html');
+                   res.redirect('http://pathogenious.me/reg_complete.html');
               });
             
            });
@@ -457,7 +457,7 @@ io.on('connection', function (socket) {
                     from: 'pathogenious@pathogenious.me',
                     to:u.userName+"@guc.edu.eg",
                   subject: 'verify pathogenious',
-                  text: 'welcome '+user.displayName+' !!\n to verify your mail and unlock your account just click the following link : \n https://pathogenious.me/verify/'+t._id
+                  text: 'welcome '+user.displayName+' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.me/verify/'+t._id
              }, function (err, info) {
                  if(err) return console.log(err);
              });
