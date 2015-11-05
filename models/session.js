@@ -13,7 +13,10 @@ var SessionSchema = new Schema({
 	durationHours:[Number],
 	durationMinutes:[Number],
 	durationSeconds:[Number],
-	score:[Number]
+	scoreIn:[Number],
+	scoreOut:[Number],
+	scores:[Number],
+	gamified:Boolean
 });
 
 var Session =  mongoose.model("Session", SessionSchema);

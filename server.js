@@ -91,14 +91,15 @@ io.on('connection', function (socket) {
       console.log("disconnected", socket.id);
     });
     
-    socket.on('client.login', function (id) {
-        Session.find({"user":id},function(err,res){
-            if(err) console.log("error finding sessions after login ",err);
+    socket.on('client.login', function (info) {
+        Session.find({"user":info.id},function(err,res){
+            if(err) return console.log("error finding sessions after login ",err);
             if(res.length==0){
                var s={
-                   user:id,
-                   login:[Date.now()]
-               }
+                   user:info.id,
+                   login:[Date.now()],
+                   scoreIn:[info.score]
+               };
                Session.create(s,function(err, res) {
                    if(err) return console.log("error creating session for new login ",err);
                    console.log("session created for new user");
@@ -107,6 +108,7 @@ io.on('connection', function (socket) {
             else
             {
                 res[0].login.push(Date.now());
+                res[0].scoreIn.push(info.score);
                 res[0].save(function(err){
                     if(err) return console.log("error saving session after login ",err);
                     console.log("session login updated for existing user ");
@@ -134,6 +136,7 @@ io.on('connection', function (socket) {
     });
     
     socket.on('client.logout',function(id){
+        console.log("entering session update.....");
         Session.find({"user":id},function(err,res){
             if(err) return console.log("error finding session after logout ",err);
             if(res.length==0)
@@ -230,20 +233,16 @@ io.on('connection', function (socket) {
         else if(info.level==2)
         {
             if(random>=0 && random<=70)
-            lv=2;
-            else if(random>70 &&random<=90)
             lv=3;
-            else
-            lv=1;
+    else
+            lv=2;
         }
         else if(info.level==3)
         {
-            if(random>=0 && random<=70)
+            if(random>=0 && random<=90)
             lv=3;
-            else if(random>70 &&random<=90)
-            lv=2;
             else
-            lv=1;
+            lv=2;
         }
         Scenario.find({'lvl':lv,'topic':info.topic},function(err,res){
             if(err) return console.log(err);
@@ -258,14 +257,71 @@ io.on('connection', function (socket) {
                 ids=users[0].answeredScenariosIdsCNS;
                 else if(info.topic=="BloodCells")
                 ids=users[0].answeredScenariosIdsBloodCells;
-                 var toGet = Math.random() * (res.length);
+                var scen;
+                 var repeated;
+                // var toGet = Math.random() * (res.length);
+                  // console.log("topic is "+info.topic);
+              //  var scen=res[Math.floor(toGet)];
+              if(info.level>1){
+                var b=  checkFull(ids,res,lv);
+                if(b==false){
+                    var found=false ;
+                    var rando;
+                    for(var i=0 ; i < res.length && found==false ; i++){
+                         rando = Math.floor(Math.random() * (res.length));
+                         if(ids.indexOf(res[rando])==-1)
+                         found=true;
+                    }
+                    scen=res[rando];
+                    repeated=ids.indexOf(scen._id)>-1?true:false;
+                }
+                else{
+                    var lv2;
+                    if(lv==2)
+                    lv2=3;
+                    else
+                    lv2=2;
+                    Scenario.find({"lvl":lv2},function(err, res2) {
+                        if(err) return console.log("error getting scenarios after full randomization ",err);
+                        var b2=checkFull(ids,res2,lv2);
+                        if(b==false)
+                        {
+                        var found=false ;
+                    var rando2;
+                    for(var i=0 ; i < res2.length && found==false ; i++){
+                         rando2 = Math.floor(Math.random() * (res2.length));
+                         if(ids.indexOf(res2[rando2])==-1)
+                         found=true;
+                    }
+                    scen=res[rando2];
+                    repeated=ids.indexOf(scen._id)>-1?true:false;;
+                    }
+                    else
+                    {
+                       Scenario.find({"lvl":1},function(err,res3){
+                           if(err) return console.log("error getting scenarions lvl 1 after randomization ",err);
+                            var found=false ;
+                    var rando3=-1;
+                    for(var i=0 ; i < res3.length && found==false ; i++){
+                         rando3 = Math.floor(Math.random() * (res3.length));
+                         if(ids.indexOf(res2[rando2])==-1)
+                         found=true;
+                         else rando3=-1;
+                    }
+                    scen=rando==-1?res3[rando3]:res3[res3.length/2];
+                    repeated=ids.indexOf(scen._id)>-1?true:false;;
+                       }) 
+                    }
+                    })
+                }
+              }
+              else{
+                   var toGet = Math.random() * (res.length);
                    console.log("topic is "+info.topic);
-                var scen=res[Math.floor(toGet)];
-                var repeated;
-                if(ids.indexOf(scen._id)>-1)
-                repeated=true;
-                else
-                repeated=false;
+                 scen=res[Math.floor(toGet)];
+                 repeated=ids.indexOf(scen._id)>-1?true:false;
+              }
+               
                 var send={
                     scenario:scen,
                     repeated:repeated
@@ -416,12 +472,193 @@ io.on('connection', function (socket) {
                 socket.emit("receive.this.scenario",send);
             })
         })
+    });
+    
+    socket.on("update.player",function(updateInfo){
+        User.find({"_id":updateInfo.user},function(err, users) {
+            if(err) console.log("error getting user to update ",err);
+           
+            var arr;
+             var slevel=updateInfo.specificLevel;
+            var toSet;
+            if(updateInfo.topic=="Genetics")
+            {
+                arr=users[0].answeredScenariosIdsGenetics;
+                arr.push(updateInfo.scenario);
+               
+                if(slevel==1&& users[0].geneticsScore+updateInfo.score>600)
+                slevel=2;
+                else if(slevel==2 &&users[0].geneticsScore+updateInfo.score>1400)
+                slevel=3;
+                toSet={
+                    answeredScenariosIdsGenetics:arr,
+                    geneticsScore:users[0].geneticsScore+updateInfo.score,
+                    answeredQuestionsGenetics:users[0].answeredQuestionsGenetics+updateInfo.answered,
+                    correctQuestionsGenetics:users[0].correctQuestionsGenetics+updateInfo.correct,
+                    correctScenariosGenetics:updateInfo.repeated==false?users[0].correctScenariosGenetics+1:users[0].correctScenariosGenetics,
+                    geneticsLevel:slevel
+                };
+            }
+            else  if(updateInfo.topic=="Cardiovascular")
+            {
+                 arr=users[0].answeredScenariosIdsCardio;
+                arr.push(updateInfo.scenario);
+                if(slevel==1&& users[0].cardioScore+updateInfo.score>600)
+                slevel=2;
+                else if(slevel==2 &&users[0].cardioScore+updateInfo.score>1400)
+                slevel=3;
+                toSet={
+                    answeredScenariosIdsCardio:arr,
+                    cardioScore:users[0].cardioScore+updateInfo.score,
+                    answeredQuestionsCardio:users[0].answeredQuestionsCardio+updateInfo.answered,
+                    correctQuestionsCardio:users[0].correctQuestionsCardio+updateInfo.correct,
+                    correctScenariosCardio:updateInfo.repeated==false?users[0].correctScenariosCardio+1:users[0].correctScenariosCardio,
+                    cardioLevel:slevel
+                };
+            }
+            else  if(updateInfo.topic=="CNS")
+            {
+                 arr=users[0].answeredScenariosIdsCNS;
+                arr.push(updateInfo.scenario);
+                if(slevel==1&& users[0].cnsScore+updateInfo.score>600)
+                slevel=2;
+                else if(slevel==2 &&users[0].cnsScore+updateInfo.score>1400)
+                slevel=3;
+                toSet={
+                    answeredScenariosIdsCNS:arr,
+                   cnsScore:users[0].cnsScore+updateInfo.score,
+                    answeredQuestionCNS:users[0].answeredQuestionsCNS+updateInfo.answered,
+                    correctQuestionsCNS:users[0].correctQuestionsCNS+updateInfo.correct,
+                    correctScenariosCNS:updateInfo.repeated==false?users[0].correctScenariosCNS+1:users[0].correctScenariosCNS,
+                    cnsLevel:slevel
+                };
+            }
+            else  if(updateInfo.topic=="BloodCells")
+            {
+                 arr=users[0].answeredScenariosIdsBloodCells;
+                arr.push(updateInfo.scenario);
+                if(slevel==1&& users[0].bloodCellsScore+updateInfo.score>600)
+                slevel=2;
+                else if(slevel==2 &&users[0].bloodCellsScore+updateInfo.score>1400)
+                slevel=3;
+                toSet={
+                    answeredScenariosIdsBloodCells:arr,
+                    bloodCellsScore:users[0].bloodCellsScore+updateInfo.score,
+                    answeredQuestionsBloodCells:users[0].answeredQuestionsBloodCells+updateInfo.answered,
+                    correctQuestionsBloodCells:users[0].correctQuestionsBloodCells+updateInfo.correct,
+                    correctScenariosBloodCells:updateInfo.repeated==false?users[0].correctScenariosBloodCells+1:users[0].correctScenariosBloodCells,
+                    bloodCellsLevel:slevel
+                };
+            }
+            
+            var bigLevel=updateInfo.overallLevel;
+            var bigScore=users[0].totalScore+updateInfo.score;
+            if(bigLevel==1 && bigScore>3000)
+            bigLevel=2;
+            else if (bigLevel==2 && bigScore>5000)
+            bigLevel=3
+            var bigAnswered=users[0].answeredQuestions+updateInfo.answered;
+            var bigCorrect=users[0].correctQuestions+updateInfo.correct;
+            toSet.totalScore=bigScore;
+            toSet.level=bigLevel;
+            toSet.answeredQuestions=bigAnswered;
+            toSet.correctQuestions=bigCorrect;
+            console.log("here is update info "+JSON.stringify(updateInfo));
+            console.log("here is the toSet "+JSON.stringify(toSet));
+            User.update({"_id":updateInfo.user},{$set:toSet},function(err,user){
+                if(err) return console.log("err updating user after finish ",err);
+                
+                updateRank(updateInfo.user);
+                User.find({"_id":updateInfo.user},function(err,users){
+                    if(err) return console.log("error getting user after rank update ",err);
+                    socket.emit("update.finished",users[0]);
+                })
+            })
+        })
+    });
+    
+    socket.on("get.possible.scenario.ung",function(topic){
+        Scenario.find({"topic":topic},function(err, scenarios) {
+            if(err) return console.log("error getting ung scenarios ",err);
+            var rand= Math.floor(Math.random()*scenarios.length);
+            socket.emit("receive.possible.scenario.ung",scenarios[rand]);
+        })
+    });
+    
+    socket.on("update.player.ung",function(info) {
+       User.find({"_id":info.id},function(err, users) {
+           if(err) console.log("error getting player to update non gamified ",err)
+           var toSet;
+           if(info.topic=="Genetics"){
+               toSet={
+                   correctScenariosGenetics:users[0].correctScenariosGenetics+1
+               }
+           }
+           else   if(info.topic=="Cardiovascular"){
+               toSet={
+                   correctScenariosCardio:users[0].correctScenariosCardio+1
+               }
+           }
+           else   if(info.topic=="CNS"){
+               toSet={
+                   correctScenariosCNS:users[0].correctScenariosCNS+1
+               }
+           }
+           else   if(info.topic=="BloodCells"){
+               toSet={
+                   correctScenariosGenetics:users[0].correctScenariosGenetics+1
+               }
+           }
+          User.update({"_id":info.id},{$set:toSet},function(err,response){
+              if(err) return console.log("error updating ungamified user ",err);
+              User.find({"_id":info.id},function(err,users){
+                  if(err) console.log("error finding ung user for the last time after update ",err);
+                  socket.emit("update.finished.ung",users[0]);
+              })
+          })
+       })
+    });
+    
+    socket.on("update.rank",function(id){
+        updateRank(id);
+        User.find({"_id":id},function(err,res){
+            if(err) console.log("error finding user after update rank ",err);
+            socket.emit("rank.updated",res[0]);
+        })
     })
 });
 
 
+function updateRank(id)
+{
+    User.find().sort({totalScore:-1}).exec(function(err,res){
+        if(err) return console.log("error fetching users for ranking ",err)
+        var currentScore=res[0].totalScore;
+        var r=0;
+       for(var i = 0 ; res[i]._id!=id; i++){
+           if(res[i].rank!=-1 && res[i].totalScore!=currentScore)
+           {
+            currentScore=res[i].totalScore ;
+            r++;
+           }
+           
+       }
+       r++;
+       User.update({"_id":id},{$set:{rank:r}},function(err,response){
+           if(err) return console.log("error updating player rank ",err)
+           console.log("user rank updated to rank "+r);
+       })
+    })
+}
 
-
+function checkFull(ids,res,level){
+    var count=0;
+    for(var i = 0 ; i < res.length; i++){
+        if(ids.indexOf(res[i]._id)>-1)
+        count++;
+    }
+    return count==res.length;
+}
 server.listen(process.env.PORT || 8080, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Chat server listening at", addr.address + ":" + addr.port);

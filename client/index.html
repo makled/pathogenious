@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PathoGenius</title>
 <link rel="stylesheet" type="text/css" href="reset.css" />
 <link rel="stylesheet" type="text/css" href="style.css" />
 <link  href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,bold" rel="stylesheet" type="text/css" >
@@ -155,7 +156,7 @@
       <div class="inner-wrap">
         <div class="row game-title-container">
           <div class="large-9 columns">
-            <h3 class="game-title">Pathogenious</h3>
+            <h3 class="game-title">Pathogenius</h3>
           </div>
           <div class="large-3 columns" id="notepad">
             <a class="left-off-canvas-toggle" href="#" >
@@ -171,14 +172,6 @@
           <!-- whatever you want goes here -->
           <h6 id="notes-title">Known so far</h6>
           <ul class="notes-list">
-            <li>Patient is very sick</li>
-            <li>Patient needs extreme help</li>
-            <li>Patient has trouble breathing</li>
-            <li>Early symptoms of hello</li>
-            <li>Patient is very sick</li>
-            <li>Patient needs extreme help</li>
-            <li>Patient has trouble breathing</li>
-            <li>Early symptoms of hello</li>
           </ul>
           <a class="exit-off-canvas"></a>
         </aside>
@@ -186,8 +179,13 @@
         <!-- main content goes here -->
         <div class="row">
           <div class="large-12 columns player-info">
-            <img class="player-picture thumb  sect-row" src="img/profile.jpg">
+            <img class="player-picture thumb  sect-row" src="img/profile.png">
             <h6 class="player-name thumb  sect-row"><b></b></h6>
+            <div class="row score-streak-container">
+              <div class="large-12 columns  sect-row">
+                <p class="player-total-score" id="totalScore"></p>
+              </div>
+            </div>
             <div class="row score-streak-container">
               <div class="large-12 columns  sect-row">
                 <p class="player-score" id="score"></p>
@@ -195,7 +193,7 @@
             </div>
             <div class="row score-streak-container">
               <div class="large-12 columns  sect-row">  
-                <p class="player-streak" id="streak"><i class="icon-fire"></i>2 days</p>
+                <p class="player-streak" id="streak"><i class="icon-fire"></i><span class="rank"></span></p>
               </div>
             </div>
             <div class="row sect-row">
@@ -216,24 +214,22 @@
         <ul class="large-block-grid-1">
           <li>
             <ul class="large-block-grid-4" id="overallStats">
-              <li>
-                <span class="icon-tint"></span>
-                <p>23</p>
+               <li>
+                <i class="icon-i-genetics"></i>
+                <p class="genetics-score"></p>
               </li>
-
               <li>
                 <i class="icon-i-cardiology"></i>
-                <p>56</p>
+                <p class="cardio-score"></p>
               </li>
-
+              
               <li>
                 <i class="icon-i-neurology"></i>
-                <p>81</p>
+                <p class="cns-score"></p>
               </li>
-
               <li>
-                <i class="icon-i-genetics"></i>
-                <p>20</p>
+                <i class="icon-tint"></i>
+                <p class="bloodcells-score"></p>
               </li>
             </ul>
           </li>
@@ -261,7 +257,7 @@
       <div class="large-12 columns">
         <h3 class="topic-name">
           <i class=""></i>
-          GENETICS
+         <span class="scenario-topic"></span> 
           <span class="info label question-level">Level 1</span>
         </h3>
       </div>
@@ -287,7 +283,7 @@
           <div class="row">
             <div class="small-12 columns">
               <a id="skip" class="button warning">
-                Skip Question
+                Skip Scenario
               </a>
             </div>
           </div>
@@ -301,26 +297,18 @@
   <div class="small-6 columns">
     <h6 id="notes-title">Known so far</h6>
       <ul class="notes-list">
-        <li>Patient is very sick</li>
-        <li>Patient needs extreme help</li>
-        <li>Patient has trouble breathing</li>
-        <li>Early symptoms of hello</li>
-        <li>Patient is very sick</li>
-        <li>Patient needs extreme help</li>
-        <li>Patient has trouble breathing</li>
-        <li>Early symptoms of hello</li>
       </ul>
   </div>
   <div class="small-6 columns">
     <div class="row sect-row">
       <div class="small-6 columns">
-        <img class="player-picture" src="">
+        <img class="player-picture" src="src="img/profile.png"">
         <h5 class="player-name"></h5>
         <h6 class="player-level"></h6>
         
         <div class="score-streak-container">
           <p class="player-score" id="scoreTouch"></p>
-          <p class="player-streak" id="streakTouch"><i class="icon-fire"></i>2 days</p>
+          <p class="player-streak" id="streakTouch"><i class="icon-fire"></i></p>
         </div>
       </div>
       
@@ -337,22 +325,22 @@
             <ul class="small-block-grid-4" id="overallStats">
               <li>
                 <span class="icon-tint"></span>
-                <p>23</p>
+                <p class="bloodcells-score">23</p>
               </li>
 
               <li>
                 <i class="icon-i-cardiology"></i>
-                <p>56</p>
+                <p class="cardio-score">56</p>
               </li>
 
               <li>
                 <i class="icon-i-neurology"></i>
-                <p>81</p>
+                <p class="cns-score">81</p>
               </li>
 
               <li>
                 <i class="icon-i-genetics"></i>
-                <p>20</p>
+                <p class="genetics-score">20</p>
               </li>
             </ul>
           </li>
@@ -382,9 +370,9 @@
     <p>Here you will find all the notes of things you know so far regarding the case.</p>
   </li>
   <li data-id="score" data-button="Next" data-prev-text="Prev">
-    <h4>XP and Streak</h4>
-    <p>XP: Experiences you gained helping out with cases.</p>
-    <p>Streak: How many days have you been playing.</p>
+    <h4>XP and Rank</h4>
+    <p>XP: Experiences you gained helping out in this scenario.</p>
+    <p>Rank: Your rank among other players.</p>
   </li>
   <li data-id="overallStats" data-button="Next" data-prev-text="Prev">
     <h4>Scenarios Solved</h4>

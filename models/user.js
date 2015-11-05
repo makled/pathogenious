@@ -29,6 +29,7 @@ var ScenarioSchema = new Schema({
      type: Number,
      default:0
     },
+    regDate:Number,
     geneticsScore:{
      type:Number,
      default:0
@@ -203,6 +204,10 @@ var ScenarioSchema = new Schema({
 	 default:""
 	},
 	currentScenarioScore:{
+	 type:Number,
+	 default:-1
+	},
+	rank:{
 	 type:Number,
 	 default:-1
 	}

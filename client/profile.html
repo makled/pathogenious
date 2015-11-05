@@ -3,6 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>PathoGenius Profile</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -166,12 +167,16 @@
     <div class="large-3 columns player-info-web show-for-touch">
       <div class="row">
         <div class="small-4 columns">
-          <img class="player-picture" src="">
+          <img class="player-picture" src="img/profile.png">
         </div>
         <div class="small-8 columns">
           <h1 class="player-name"></h1>
-          <h4 class="player-level">Senior Resident</h4>
-
+          <h4 class="player-level"></h4>
+          <div class="row" id="score-streak-container">
+            <div class="large-12 columns  sect-row">
+              <p class="player-total-score" id="totalScore"></p>
+            </div>
+          </div>
           <div class="row" id="score-streak-container">
             <div class="large-12 columns  sect-row">
               <h6 class="player-score" id="score"></h6>
@@ -179,11 +184,11 @@
           </div>
           <div class="row">
             <div class="large-12 columns  sect-row">
-              <h6 class="player-streak" id="streak"><i class="icon-fire"></i>2 days</h6>
+              <h6 class="player-streak" id="streak"><i class="icon-fire"></i></h6>
             </div>
           </div>
 
-          <h6 class="player-discription">Water, air, and cleanness are the chief articles in my pharmacy.</h6>
+          <h6 class="player-discription"></h6>
         </div>
       </div>
     </div>
@@ -191,10 +196,15 @@
     <div class="large-3 columns hide-for-touch">
       <div class="row">
         <div class="large-12 columns player-info">
-          <img class="player-picture" src="">
+          <img class="player-picture" src="img/profile.png">
           <h4 class="player-name"></h4>
           <p class="player-level"></p>
-
+          
+          <div class="row" id="score-streak-container">
+            <div class="large-12 columns  sect-row">
+              <p class="player-total-score" id="totalScore"></p>
+            </div>
+          </div>
           <div class="row" id="score-streak-container">
             <div class="large-12 columns  sect-row">
               <p class="player-score" id="score"></p>
@@ -202,10 +212,10 @@
           </div>
           <div class="row">
             <div class="large-12 columns  sect-row">
-              <p class="player-streak" id="streak"><i class="icon-fire"></i>2 days</p>
+              <p class="player-streak" id="streak"><i class="icon-fire"></i></p>
             </div>
           </div>
-          <p class="player-discription">Water, air, and cleanness are the chief articles in my pharmacy.</p>
+          <p class="player-discription"</p>
         </div>
       </div>
 
@@ -216,19 +226,19 @@
               <ul class="large-block-grid-4" id="overallStats">
                 <li>
                   <i class="icon-i-genetics"></i>
-                  <p class="genetics-score">20</p>
+                  <p class="genetics-score"></p>
                 </li>
                 <li>
                   <i class="icon-i-cardiology"></i>
-                  <p class="cardiology-score">56</p>
+                  <p class="cardiology-score"></p>
                 </li>
                 <li>
                   <i class="icon-i-neurology"></i>
-                  <p class="neurology-score">81</p>
+                  <p class="neurology-score"></p>
                 </li>
                 <li>
                   <span class="icon-tint"></span>
-                  <p class="bloodcells-score">23</p>
+                  <p class="bloodcells-score"></p>
                 </li>
               </ul>
             </li>
@@ -298,7 +308,7 @@
             </div>
             <div><h5><i class="icon-i-cardiology"></i>Cardiovascular <span class="info label level cardio-level"></span></h5></div>
             <div class="progress round">
-              <span class="meter success" id="carioMeter"></span>
+              <span class="meter success" id="cardioMeter"></span>
             </div>
             <div><h5><i class="icon-i-neurology"></i>CNS <span class="info label level cns-level"></span></h5></div>
             <div class="progress round">
@@ -311,9 +321,14 @@
           </div>
         </dic>
       </div>
-      <h5 class="player-info-categories"><i class="icon-trophy"></i>Awards</h5>
+      <h5 class="player-info-categories"><i class="icon-trophy"></i>Overall Level</h5>
+      <div><h5>Overall Level</h5></div>
+        <div class="progress round">
+          <span class="meter success" id="levelMeter"></span>
+        </div>
       <div id="owl-example" class="owl-carousel">
-        <div>
+        
+        <!--<div>
           <img src="img/trophy-locked.ico">
           <p>STREAK BEAST!</p>
         </div>
@@ -361,7 +376,7 @@
         <div>
           <img src="img/trophy-locked.ico">
           <p>MAXED OUT</p>
-        </div>
+        </div>-->
       </div>
       <h5 class="player-info-categories"><i class="icon-chart-bar-1"></i>Stats</h5>
       <div>

@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PathoGenius</title>
 <link rel="stylesheet" type="text/css" href="reset.css" />
 <link rel="stylesheet" type="text/css" href="style.css" />
 <link  href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,bold" rel="stylesheet" type="text/css" >
@@ -38,7 +39,7 @@
       <div class="large-12 columns">
         <h3 class="topic-name">
           <i class=""></i>
-          GENETICS
+        <span id="topic-name"></span>
         </h3>
       </div>
     </div>
@@ -62,8 +63,8 @@
           </div>
           <div class="row">
             <div class="small-12 columns">
-              <a class="button warning">
-                Skip Question
+              <a id="skip" class="button warning" style="display: none;">
+                Skip Scenario
               </a>
             </div>
           </div>
@@ -76,14 +77,6 @@
     
           <h6 class="hide-for-touch" id="notes-title">Known so far</h6>
           <ul class="hide-for-touch notes-list">
-            <li>Patient is very sick</li>
-            <li>Patient needs extreme help</li>
-            <li>Patient has trouble breathing</li>
-            <li>Early symptoms of hello</li>
-            <li>Patient is very sick</li>
-            <li>Patient needs extreme help</li>
-            <li>Patient has trouble breathing</li>
-            <li>Early symptoms of hello</li>
           </ul>
           
           
@@ -98,14 +91,6 @@
           <li>
             <h6 class="show-for-touch" id="notes-title">Known so far</h6>
             <ul class="show-for-touch notes-list">
-              <li>Patient is very sick</li>
-              <li>Patient needs extreme help</li>
-              <li>Patient has trouble breathing</li>
-              <li>Early symptoms of hello</li>
-              <li>Patient is very sick</li>
-              <li>Patient needs extreme help</li>
-              <li>Patient has trouble breathing</li>
-              <li>Early symptoms of hello</li>
             </ul>
             
             <div class="row sect-row show-for-touch">
@@ -114,24 +99,22 @@
             </div>
             
             <ul class="large-block-grid-4" id="overallStats">
-              <li>
-                <span class="icon-tint"></span>
-                <p>23</p>
+               <li>
+                <i class="icon-i-genetics"></i>
+                <p class="genetics-score"></p>
               </li>
-
-              <li>
+               <li>
                 <i class="icon-i-cardiology"></i>
-                <p>56</p>
+                <p class="cardio-score"></p>
               </li>
-
+              
               <li>
                 <i class="icon-i-neurology"></i>
-                <p>81</p>
+                <p class="cns-score"></p>
               </li>
-
               <li>
-                <i class="icon-i-genetics"></i>
-                <p>20</p>
+                <span class="icon-tint"></span>
+                <p class="bloodcells-score"></p>
               </li>
             </ul>
           </li>
@@ -140,7 +123,7 @@
             <ul class="large-block-grid-1 small-block-grid-1" id="playTopics">
             <li>
               <a class="button play-topic play-genetics">
-                <i class="icon-i-genetics"></i>Genetics
+                <i class="icon-i-genetics">Genetics</i>
               </a>
             </li>
             
@@ -170,7 +153,7 @@
 
 <script type='text/javascript' src='js/jquery.min.js'></script>
 <script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="js/core.js"></script>
+<script type="text/javascript" src="js/core-ung.js"></script>
 
 <!-- foundation js-->
     <script src="js/vendor/jquery.js"></script>

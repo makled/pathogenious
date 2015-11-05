@@ -22,6 +22,7 @@ else if(valid==-500)
 	id:$("#idsignup").val(),
 	tutorial:$("#tutorialsignup").val(),
 	password:$("#passwordsignup").val(),
+	regDate:Date.now()
      };
      console.log("user to be sent "+JSON.stringify(user));
      socket.emit("request.registration",user);
@@ -96,8 +97,13 @@ socket.on('successful.login',function(info){
     sessionStorage.pathogeniousansweredScenariosIds=info.answeredScenariosIds;
     sessionStorage.pathogeniousgamified=info.gamified;*/
     sessionStorage.pathogenioususer=JSON.stringify(info);
+    if(info.gamified==true)
     swal({title: "Login successful!", text: "redirecting to your profile", timer: 5000,type:"success", showConfirmButton: false },function(){
         window.location.replace("profile.html");
+    });
+    else
+     swal({title: "Login successful!", text: "redirecting to the game", timer: 5000,type:"success", showConfirmButton: false },function(){
+        window.location.replace("ung-index.html");
     });
 });
 

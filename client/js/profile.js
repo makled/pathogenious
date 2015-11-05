@@ -2,12 +2,14 @@ var socket=io();
 $(function(){
     if( !sessionStorage.pathogenioususer)
     window.location.replace("login.html");
-    else 
-    loadInfo();
+    else
+   
+    socket.emit("update.rank",(JSON.parse(sessionStorage.pathogenioususer))._id);
 });
 
 function loadInfo()
 {
+    console.log("entered update info");
     var user=JSON.parse(sessionStorage.pathogenioususer);
     $(".player-name").html(user.displayName);
     console.log(user.level);
@@ -19,7 +21,8 @@ function loadInfo()
     else
     title="Chief resident";
     $(".player-level").html(title);
-    $(".player-streak").html("<i class='icon-fire'></i>"+user.dailyStreak+" days");
+     var r = user.rank==-1?"not yet ranked . play to get a rank !!":""+user.rank;
+    $(".player-streak").html("<i class='icon-fire'></i>"+"rank "+r);
     $(".genetics-score").text(user.correctScenariosGenetics);
     $(".cardiology-score").text(user.correctScenariosCardio);
     $(".neurology-score").text(user.correctScenariosCNS);
@@ -28,38 +31,42 @@ function loadInfo()
     if(user.answeredQuestionsGenetics==0)
     x=0;
     else
-    x=user.correctQuestionsGenetics/user.answeredQuestionsGenetics;
+    x=user.correctQuestionsGenetics/user.answeredQuestionsGenetics*100;
      if(user.answeredQuestionsCardio==0)
     y=0;
     else
-    y=user.correctQuestionsCardio/user.answeredQuestionsCardio;
+    y=user.correctQuestionsCardio/user.answeredQuestionsCardio*100;
      if(user.answeredQuestionsCNS==0)
     z=0;
     else
-    z=user.correctQuestionsCNS/user.answeredQuestionsCNS;
+    z=user.correctQuestionsCNS/user.answeredQuestionsCNS*100;
      if(user.answeredQuestionsBloodCells==0)
     w=0;
     else
-    w=user.correctQuestionsBloodCells/user.answeredQuestionsBloodCells;
+    w=user.correctQuestionsBloodCells/user.answeredQuestionsBloodCells*100;
     samurai(x,y,z,w);
     
     $(".genetics-level").html("level "+user.geneticsLevel);
     $(".cardio-level").html("level "+user.cardioLevel);
      $(".cns-level").html("level "+user.cnsLevel);
      $(".bloodcells-level").html("level "+user.bloodCellsLevel);
+     $(".player-total-score").html("total score: "+user.totalScore);
      
-     var geneticsProgress=user.geneticsScore/1040*100;
-     var geneticsValue="style=width:"+geneticsProgress+"%;";
-     var cardioProgress=user.cardioScore/1040*100;
-      var cardioValue="style=width:"+cardioProgress+"%;";
-     var cnsProgress=user.cnsScore/1040*100;
-      var cnsValue="style=width:"+cnsProgress+"%;";
-     var bloodCellsProgress=user.bloodCellsScore/1040*100;
-      var bloodCellsValue="style=width:"+bloodCellsProgress+"%;";
+     var geneticsProgress=user.geneticsLevel==1?user.geneticsScore/600*100:user.geneticsLevel==2?(user.geneticsScore-600)/800*100:(user.geneticsScore-1400)/1000*100;
+     var geneticsValue="width:"+geneticsProgress+"%;";
+     var cardioProgress=user.cardioLevel==1?user.cardioScore/600*100:user.cardioLevel==2?(user.cardioScore-600)/800*100:(user.cardioScore-1400)/1000*100;
+      var cardioValue="width:"+cardioProgress+"%;";
+     var cnsProgress=user.cnsLevel==1?user.cnsScore/600*100:(user.cnsLevel==2?(user.cnsScore-600)/800*100:(user.cnsScore-1400)/1000*100);
+      var cnsValue="width:"+cnsProgress+"%;";
+     var bloodCellsProgress=user.bloodCellsLevel==1?user.bloodCellsScore/600*100:(user.bloodCellsLevel==2?(user.bloodCellsScore-600)/800*100:(user.bloodCellsScore-1400)/1000*100);
+      var bloodCellsValue="width:"+bloodCellsProgress+"%;";
+      var overallProgress=user.level==1?user.totalScore/3000*100:(user.level==2?(user.totalScore-3000)/2000*100:(user.totalScore-5000)/2000*100);
+      var overallValue="width:"+overallProgress+"%;";
      $("#geneticsMeter").attr('style', geneticsValue);
      $("#cardioMeter").attr('style', cardioValue);
      $("#cnsMeter").attr('style', cnsValue);
      $("#bloodMeter").attr('style', bloodCellsValue);
+     $("#levelMeter").attr('style',overallValue);
 }
 $(".play-genetics").on('click',function(){
     var info={
@@ -152,4 +159,10 @@ socket.on("unfinished.scenario.same.topic",function(send){
     sessionStorage.currentScenarioPosition=send.scenarioPosition;
     sessionStorage.pathogenioustopic=send.clickedTopic; 
     window.location.replace("index.html");
+})
+
+socket.on("rank.updated",function(user){
+    console.log(JSON.stringify(user));
+    sessionStorage.pathogenioususer=JSON.stringify(user);
+    loadInfo();
 })
