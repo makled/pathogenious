@@ -1,17 +1,18 @@
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var transporter = nodemailer.createTransport(
-    {
-        service:'Gmail',
+    smtpTransport({
+        host: 'smtp.webfaction.com',
+        port: 25,
         debug:true,
         auth:{
-             user: 'pathogenious@gmail.com',
-             pass: 'ma05051989'
+             user: 'pathogenius_guc',
+             pass: 'pathpass'
         }
-    });
+    }));
     
      transporter.sendMail({
-            from: 'pathogenious@gmail.com',
+            from: 'pathogenious@pathogenious.me',
             to:'amr.m.draz@gmail.com',
           subject: 'verify pathogenious',
           text: 'hello world!'

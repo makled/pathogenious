@@ -1,1 +1,4 @@
 node_modules
+bin
+run
+lib

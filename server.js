@@ -19,14 +19,15 @@ for(var i = 0 ; i < 20 ; i++)
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var transporter = nodemailer.createTransport(
-    {
-        service:'Gmail',
+    smtpTransport({
+        host:"smtp.webfaction.com",
         debug:true,
+        port:25,
         auth:{
-             user: 'pathogenious@gmail.com',
-             pass: 'ma05051989'
+             user: 'pathogenius_guc',
+             pass: 'pathpass'
         }
-    });
+    }));
 var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
@@ -453,7 +454,7 @@ io.on('connection', function (socket) {
                   
                   Token.create(token,function(error,t){
                       transporter.sendMail({
-                    from: 'pathogenious@gmail.com',
+                    from: 'pathogenious@pathogenious.com',
                     to:u.userName+"@guc.edu.eg",
                   subject: 'verify pathogenious',
                   text: 'welcome '+user.displayName+' !!\n to verify your mail and unlock your account just click the following link : \n https://masters-new-lordvoldmort.c9.io/verify/'+t._id
