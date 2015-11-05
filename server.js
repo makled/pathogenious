@@ -455,7 +455,7 @@ io.on('connection', function (socket) {
                   Token.create(token,function(error,t){
                       transporter.sendMail({
                     from: 'pathogenious@pathogenious.me',
-                    to:u.userName+"@guc.edu.eg",
+                    to:u.userName+"@student.guc.edu.eg",
                   subject: 'verify pathogenious',
                   text: 'welcome '+user.displayName+' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.me/verify/'+t._id
              }, function (err, info) {

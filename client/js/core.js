@@ -264,7 +264,7 @@ function renderRoom(room) {
         $(".choice").off('click')
         if (position == currentScenario.end.length+currentScenario.rooms.length-1) {
             $(".action-button").html("")
-            console.log("update after end of scenario.....");
+            
             sessionStorage.removeItem("currentScenarioId");
             sessionStorage.removeItem("currentScenarioTopic");
             sessionStorage.removeItem("currentScenarioScore");
@@ -293,7 +293,7 @@ function renderRoom(room) {
          $(".nav").click(function() {
        
  position++
- console.log("po"+position);
+ 
   if(position<currentScenario.rooms.length+1 && position!=0)
             {
        
@@ -310,7 +310,7 @@ function renderRoom(room) {
            topic:sessionStorage.pathogenioustopic,
            position:position
        }
-       console.log("saving for later ...."+position);
+       
        socket.emit("save-for-later",info);
     
         if (position < currentScenario.rooms.length) {
@@ -348,7 +348,7 @@ function renderRoom(room) {
             $(".player-score").html("<b class=''>Case Score </b>"+caseScore+"");
         $(".eleminate").remove();
         var currentRoom=currentScenario.rooms[position]
-        console.log(" at position "+position)
+       
         if(position>=currentScenario.rooms.length)
         currentRoom=currentScenario.end[position-currentScenario.rooms.length]
         var n1 = Math.floor(Math.random() *currentRoom.choices.length);
@@ -393,7 +393,7 @@ function renderChoices(room) {
         
          $(".nav").click(function() {
  position++
-  console.log("pos "+position);
+ 
   if(position<currentScenario.rooms.length&&position!=-1)
             {
                
@@ -410,7 +410,7 @@ function renderChoices(room) {
            topic:sessionStorage.pathogenioustopic,
            position:position
        }
-       console.log("saving for later ...."+info.topic);
+       
        socket.emit("save-for-later",info);
         if (position < currentScenario.rooms.length) {
             
@@ -481,7 +481,7 @@ $("#skip").on("click",function(){
 function checkBigLevel(user){
      if(user.level>currentUser.level)
     {
-        console.log("entered title promotion")
+        
         var rank=user.level==2?"Senior Resident":"Chief Resident";
          swal({
             title: "Promotion!!?",
@@ -499,7 +499,7 @@ function checkBigLevel(user){
 
 function general()
 {
-    console.log("entered final step")
+    
     swal({
         title: "Scenario Solved!!",
         text: "You got "+caseScore+" points in your score do you wanna continue playing in this topic??",

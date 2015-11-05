@@ -9,7 +9,7 @@ $(function() {
     
      if(!sessionStorage.pathogenioususer)
     window.location.replace("login.html");
-    else if((JSON.parse(sessionStorage.pathogenioususer)).gamified=="true")
+    else if((JSON.parse(sessionStorage.pathogenioususer)).gamified==true)
     window.location.reload("login.html");
 //     else if(!sessionStorage.pathogenioustopic)
 //     {
@@ -31,17 +31,13 @@ else
 {
        currentUser=JSON.parse(sessionStorage.pathogenioususer);
        loadInfo();
+       socket.emit('client.login.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
        
     }
 });
 
-socket.on('connect', function() {
-    console.log("sending login update event");
- socket.emit('client.login.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
-});
 
 $(window).on('unload',function(){
-    console.log("sending logout update event");
   
     socket.emit('client.logout.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
 })
@@ -143,7 +139,6 @@ function renderRoom(room) {
         $(".choice").off('click')
         if (position == currentScenario.end.length+currentScenario.rooms.length-1) {
             $(".action-button").html("")
-            console.log("update after end of scenario.....");
             sessionStorage.removeItem("currentScenarioId");
             sessionStorage.removeItem("currentScenarioTopic");
             sessionStorage.removeItem("currentScenarioScore");
@@ -152,7 +147,6 @@ function renderRoom(room) {
                 user:currentUser._id,
                 topic:topic
             };
-            console.log("here is the info ",updateInfo);
            socket.emit("update.player.ung",updateInfo);
           //  socket.emit("update.player",toBeUpdated);
             
@@ -166,7 +160,6 @@ function renderRoom(room) {
          $(".nav").click(function() {
        
  position++
- console.log("po"+position);
   if(position<currentScenario.rooms.length && position!=-1)
             {
        
@@ -209,7 +202,6 @@ function renderRoom(room) {
         {
            $(".eleminate").remove();
         var currentRoom=currentScenario.rooms[position]
-        console.log(" at position "+position)
         if(position>=currentScenario.rooms.length)
         currentRoom=currentScenario.end[position-currentScenario.rooms.length]
         var n1 = Math.floor(Math.random() *currentRoom.choices.length);
@@ -253,7 +245,6 @@ function renderChoices(room) {
         
          $(".nav").click(function() {
  position++
-  console.log("pos "+position);
   if(position<currentScenario.rooms.length+1&&position!=0)
             {
                
@@ -269,7 +260,6 @@ function renderChoices(room) {
            topic:sessionStorage.pathogenioustopic,
            position:position
        }
-       console.log("saving for later ...."+info.topic);
     //   socket.emit("save-for-later",info);
         if (position < currentScenario.rooms.length) {
             
@@ -285,7 +275,6 @@ function renderChoices(room) {
 }
 
 socket.on("update.finished.ung",function(user){
-    console.log("user from  updated event is ",user);
     sessionStorage.pathogenioususer=JSON.stringify(user);
   /*  if(playerLevel==1&&playerScore+caseScore>1000)
     {
@@ -341,7 +330,6 @@ $("#skip").on("click",function(){
 function checkBigLevel(user){
      if(user.level>currentUser.level)
     {
-        console.log("entered title promotion")
         var rank=user.level==2?"Senior Resident":"Chief Resident";
          swal({
             title: "Promotion!!?",
@@ -359,7 +347,6 @@ function checkBigLevel(user){
 
 function general()
 {
-    console.log("entered final step")
     swal({
         title: "Scenario Solved!!",
         text: "Select a Category to continue playing",

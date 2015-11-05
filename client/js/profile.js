@@ -9,10 +9,10 @@ $(function(){
 
 function loadInfo()
 {
-    console.log("entered update info");
+    
     var user=JSON.parse(sessionStorage.pathogenioususer);
     $(".player-name").html(user.displayName);
-    console.log(user.level);
+   
     var title;
     if((user.level)==1)
     title="Junior resident";
@@ -123,7 +123,7 @@ socket.on("done",function(topic){
 
 socket.on("continue-to-topic",function(topic){
     sessionStorage.pathogenioustopic=topic;
-    console.log("continuing to topic....."+topic);
+    
     window.location.replace("index.html");
 });
 
@@ -162,7 +162,7 @@ socket.on("unfinished.scenario.same.topic",function(send){
 })
 
 socket.on("rank.updated",function(user){
-    console.log(JSON.stringify(user));
+ 
     sessionStorage.pathogenioususer=JSON.stringify(user);
     loadInfo();
 })
