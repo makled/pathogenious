@@ -31,17 +31,20 @@ else
 {
        currentUser=JSON.parse(sessionStorage.pathogenioususer);
        loadInfo();
-       socket.emit('client.login.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
        
     }
 });
 
 socket.on('connect', function() {
-   socket.emit('client.login.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
+    var send={
+        id:(JSON.parse(sessionStorage.pathogenioususer))._id,
+        socket:socket.id
+    };
+   socket.emit('client.login.ung',send);
 });
 $(window).on('unload',function(){
   
-    socket.emit('client.logout.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
+    //socket.emit('client.logout.ung',(JSON.parse(sessionStorage.pathogenioususer))._id);
 })
 function loadInfo(){
   //  var pathogenioususer = JSON.parse(sessionStorage.pathogenioususer);

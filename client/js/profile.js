@@ -5,6 +5,7 @@ $(function(){
     else
    
     socket.emit("update.rank",(JSON.parse(sessionStorage.pathogenioususer))._id);
+  // loadInfo();
 });
 
 function loadInfo()

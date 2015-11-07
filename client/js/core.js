@@ -60,6 +60,8 @@ $(function() {
             id:currentUser._id,
             topic:sessionStorage.pathogenioustopic
         };
+        console.log("here is the send for getting the scenarios ");
+        console.log(JSON.stringify(info));
    socket.emit("get.possible.scenario.gamified",info);
     }
 });
@@ -67,18 +69,20 @@ $(function() {
 socket.on('connect', function() {
     var info={
         id:(JSON.parse(sessionStorage.pathogenioususer))._id,
-        score:(JSON.parse(sessionStorage.pathogenioususer)).totalScore
+        score:(JSON.parse(sessionStorage.pathogenioususer)).totalScore,
+        socket:socket.id
     };
+    console.log("request session update");
  socket.emit('client.login.gamified',info);
 });
 
-$(window).on('unload',function(){
+$(window).on('beforeunload',function(){
     var info={
         id:(JSON.parse(sessionStorage.pathogenioususer))._id,
         score:(JSON.parse(sessionStorage.pathogenioususer)).totalScore
     };
   
-    socket.emit('client.logout.gamified',info);
+    //socket.emit('client.logout.gamified',info);
 })
 
 socket.on("receive.possible.scenario.gamified",function(send){
@@ -499,7 +503,7 @@ function checkBigLevel(user){
 
 function general()
 {
-    
+    console.log("entered final step")
     swal({
         title: "Scenario Solved!!",
         text: "You got "+caseScore+" points in your score do you wanna continue playing in this topic??",
