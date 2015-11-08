@@ -196,7 +196,7 @@ io.on('connection', function(socket) {
                 if (err) return console.log("error finding sessions after login ", err);
                 if (res.length == 0) {
                     var s = {
-                        user: id,
+                        user: send.id,
                         login: [Date.now()],
                         gamified: false
                     };
