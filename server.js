@@ -67,43 +67,56 @@ io.on('connection', function(socket) {
     sockets.push(socket);
 
     socket.on('disconnect', function() {
-          User.find({"socketId":socket.id},function(err,users){
-                if(err) return console.log("error retrieving user after disconnect ",err);
-                
-                if(users.length>0)
-                {
-                    console.log("the user after disconnect ");
-                    Session.find({"user":users[0]._id},function(err,sessions){
-                        if(err) return console.log("error getting sessions after disconnect ",err);
-                        var logoutarr=sessions[0].logout;
-                        logoutarr.push(Date.now());
-                        var loginarr=sessions[0].login;
-                        var dur=(logoutarr[logoutarr.length-1]-loginarr[loginarr.length-1])/1000;
-                        var durhoursarray=sessions[0].durationHours;
-                        durhoursarray.push(Math.floor(dur/3600));
-                        dur=dur%3600;
-                        var durminutesarray=sessions[0].durationMinutes;
-                        durminutesarray.push(Math.floor(dur/60));
-                        var dursecondsarray=sessions[0].durationSeconds;
-                        dursecondsarray.push(dur%60);
-                       var scoreinarray=sessions[0].scoreIn;
-                       var scoresarray=sessions[0].scores;
-                       if(scoreinarray.length>1){
-                          scoresarray.push(scoreinarray[scoreinarray.length-1]-scoreinarray[scoreinarray.length-2]);
-                       }
-                        // sessions[0].save(function(err){
-                        //     if(err) return console.log("error saving session after disconnect ",err);
-                        // });
-                        Session.update({"user":users[0]._id},{$set:{logout:logoutarr,durationHours:durhoursarray,durationMinutes:durminutesarray,durationSeconds:dursecondsarray,scores:scoresarray}},function(err,response){
-                            if(err) return console.log("error updating session after logout ",err);
-                            
-                            console.log("session updated after logout successfully ");
-                        });
+        User.find({
+            "socketId": socket.id
+        }, function(err, users) {
+            if (err) return console.log("error retrieving user after disconnect ", err);
+
+            if (users.length > 0) {
+                console.log("the user after disconnect ");
+                Session.find({
+                    "user": users[0]._id
+                }, function(err, sessions) {
+                    if (err) return console.log("error getting sessions after disconnect ", err);
+                    var logoutarr = sessions[0].logout;
+                    logoutarr.push(Date.now());
+                    var loginarr = sessions[0].login;
+                    var dur = (logoutarr[logoutarr.length - 1] - loginarr[loginarr.length - 1]) / 1000;
+                    var durhoursarray = sessions[0].durationHours;
+                    durhoursarray.push(Math.floor(dur / 3600));
+                    dur = dur % 3600;
+                    var durminutesarray = sessions[0].durationMinutes;
+                    durminutesarray.push(Math.floor(dur / 60));
+                    var dursecondsarray = sessions[0].durationSeconds;
+                    dursecondsarray.push(dur % 60);
+                    var scoreinarray = sessions[0].scoreIn;
+                    var scoresarray = sessions[0].scores;
+                    if (scoreinarray.length > 1) {
+                        scoresarray.push(scoreinarray[scoreinarray.length - 1] - scoreinarray[scoreinarray.length - 2]);
+                    }
+                    // sessions[0].save(function(err){
+                    //     if(err) return console.log("error saving session after disconnect ",err);
+                    // });
+                    Session.update({
+                        "user": users[0]._id
+                    }, {
+                        $set: {
+                            logout: logoutarr,
+                            durationHours: durhoursarray,
+                            durationMinutes: durminutesarray,
+                            durationSeconds: dursecondsarray,
+                            scores: scoresarray
+                        }
+                    }, function(err, response) {
+                        if (err) return console.log("error updating session after logout ", err);
+
+                        console.log("session updated after logout successfully ");
                     });
-                }
-                else
+                });
+            }
+            else
                 console.log("no users found after disconnect");
-            });
+        });
         console.log("disconnected", socket.id);
     });
 
@@ -125,22 +138,35 @@ io.on('connection', function(socket) {
                     });
                 }
                 else {
-                    var loginarr=res[0].login;
+                    var loginarr = res[0].login;
                     loginarr.push(Date.now());
-                    var scorearr=res[0].scoreIn;
+                    var scorearr = res[0].scoreIn;
                     scorearr.push(info.score);
                     // res[0].save(function(err) {
                     //     if (err) return console.log("error saving session after login ", err);
                     //     console.log("session login updated for existing user ");
                     // });
-                    Session.update({"user":info.id},{$set:{login:loginarr,scoreIn:scorearr}},function(err, response) {
-                        if(err) return console.log("error updating session for login");
+                    Session.update({
+                        "user": info.id
+                    }, {
+                        $set: {
+                            login: loginarr,
+                            scoreIn: scorearr
+                        }
+                    }, function(err, response) {
+                        if (err) return console.log("error updating session for login");
                         console.log("session updated successfully after login");
                     })
                 }
-                
-                User.update({"_id":info.id},{$set:{socketId:info.socket}},function(err,users){
-                    if(err) return console.log("error updating user socket ",err);
+
+                User.update({
+                    "_id": info.id
+                }, {
+                    $set: {
+                        socketId: info.socket
+                    }
+                }, function(err, users) {
+                    if (err) return console.log("error updating user socket ", err);
                     console.log("user updated successfully after login")
                 })
             })
@@ -206,13 +232,25 @@ io.on('connection', function(socket) {
                     });
                 }
                 else {
-                    var loginarr=res[0].login;
+                    var loginarr = res[0].login;
                     loginarr.push(Date.now());
-                    Session.update({"user":send.id},{$set:{login:loginarr}},function(err,res){
-                        if(err) console.log("err updating session ung player ",err);
+                    Session.update({
+                        "user": send.id
+                    }, {
+                        $set: {
+                            login: loginarr
+                        }
+                    }, function(err, res) {
+                        if (err) console.log("err updating session ung player ", err);
                         console.log("updated session for ung player successfully");
-                        User.update({"_id":send.id},{$set:{socketId:send.socket}},function(err,res){
-                            if(err) return console.log("error updating ung player after login ",err);
+                        User.update({
+                            "_id": send.id
+                        }, {
+                            $set: {
+                                socketId: send.socket
+                            }
+                        }, function(err, res) {
+                            if (err) return console.log("error updating ung player after login ", err);
                             console.log("updated ung player socket successfully");
                         })
                     })
@@ -346,7 +384,7 @@ io.on('connection', function(socket) {
             else
                 lv = 2;
         }
-        
+
         console.log("Point 2")
         Scenario.find({
             'lvl': lv,
@@ -373,93 +411,93 @@ io.on('connection', function(socket) {
                 //  var scen=res[Math.floor(toGet)];
                 console.log("Point 3")
                 if (info.level > 1) {
-                //   console.log("Point 3.5")
-                //     var b = checkFull(ids, res, lv);
+                    // console.log("Point 3.5")
+                    // var b = checkFull(ids, res, lv);
 
-                //     if (b == false) {
-                //         console.log("Point 3.5.1")
-                //         console.log("entered finding step 1");
+                    // if (b == false) {
+                    //     console.log("Point 3.5.1")
+                    //     console.log("entered finding step 1");
 
-                //         var list = [];
+                    //     var list = [];
 
-                //         for (var i = 0; i < res.length; i++) {
-                //             if (ids.indexOf(res[i]._id) < 0)
-                //                 list.push(res[i]);
+                    //     for (var i = 0; i < res.length; i++) {
+                    //         if (ids.indexOf(res[i]._id) < 0)
+                    //             list.push(res[i]);
 
-                //         }
+                    //     }
 
-                //         var indexOfScenario = Math.floor(Math.random() * (list.length));
-                //         scen = list[indexOfScenario];
-                //         repeated = ids.indexOf(scen._id) < 0 ? false : true;
-                //         console.log("scenario from step 1 is ", typeof scen === "undefined");
-                //         console.log("and the repeated is " + repeated);
-                //     }
-                //     else {
-                //         console.log("Point 3.5.2")
-                //         var lv2;
-                //         if (lv == 2)
-                //             lv2 = 3;
-                //         else
-                //             lv2 = 2;
-                //         console.log("Point 3.5.2", lv2)    
-                //         Scenario.find({
-                //             "lvl": lv2,
-                //             'topic': info.topic
-                //         }, function(err, res2) {
-                //             if (err) return console.log("error getting scenarios after full randomization ", err);
-                //             var b2 = checkFull(ids, res2, lv2);
-                //             if (b2 == false) {
-                //                 console.log("Point 3.5.2.1")
+                    //     var indexOfScenario = Math.floor(Math.random() * (list.length));
+                    //     scen = list[indexOfScenario];
+                    //     repeated = ids.indexOf(scen._id) < 0 ? false : true;
+                    //     console.log("scenario from step 1 is ", typeof scen === "undefined");
+                    //     console.log("and the repeated is " + repeated);
+                    // }
+                    // else {
+                    //     console.log("Point 3.5.2")
+                    //     var lv2;
+                    //     if (lv == 2)
+                    //         lv2 = 3;
+                    //     else
+                    //         lv2 = 2;
+                    //     console.log("Point 3.5.2", lv2)
+                    //     Scenario.find({
+                    //         "lvl": lv2,
+                    //         'topic': info.topic
+                    //     }, function(err, res2) {
+                    //         if (err) return console.log("error getting scenarios after full randomization ", err);
+                    //         var b2 = checkFull(ids, res2, lv2);
+                    //         if (b2 == false) {
+                    //             console.log("Point 3.5.2.1")
 
-                //                 var list2 = []
+                    //             var list2 = []
 
-                //                 for (var i = 0; i < res2.length; i++) {
-                //                     if (ids.indexOf(res2[i]._id) < 0)
-                //                         list2.push(res2[i]);
+                    //             for (var i = 0; i < res2.length; i++) {
+                    //                 if (ids.indexOf(res2[i]._id) < 0)
+                    //                     list2.push(res2[i]);
 
-                //                 }
+                    //             }
 
-                //                 var indexOfScenario2 = Math.floor(Math.random() * (list2.length));
-                //                 scen = list2[indexOfScenario2];
-                //                 repeated = ids.indexOf(scen._id) < 0 ? false : true;
-                //                 console.log("scenario from step 2 is ", typeof scen === "undefined");
-                //                 console.log("and the repeated is " + repeated);
-                //             }
-                //             else {
-                //                 console.log("Point 3.5.2.2")
-                //                 console.log("entered step 3");
-                //                 Scenario.find({
-                //                     "lvl": 1,
-                //                     'topic': info.topic
-                //                 }, function(err, res3) {
-                //                     if (err) return console.log("error getting scenarions lvl 1 after randomization ", err);
-                //                     var b3 = checkFull(ids, res3, 1);
-                //                     if (b3 == false) {
+                    //             var indexOfScenario2 = Math.floor(Math.random() * (list2.length));
+                    //             scen = list2[indexOfScenario2];
+                    //             repeated = ids.indexOf(scen._id) < 0 ? false : true;
+                    //             console.log("scenario from step 2 is ", typeof scen === "undefined");
+                    //             console.log("and the repeated is " + repeated);
+                    //         }
+                    //         else {
+                    //             console.log("Point 3.5.2.2")
+                    //             console.log("entered step 3");
+                    //             Scenario.find({
+                    //                 "lvl": 1,
+                    //                 'topic': info.topic
+                    //             }, function(err, res3) {
+                    //                 if (err) return console.log("error getting scenarions lvl 1 after randomization ", err);
+                    //                 var b3 = checkFull(ids, res3, 1);
+                    //                 if (b3 == false) {
 
-                //                         var list3 = []
+                    //                     var list3 = []
 
-                //                         for (var i = 0; i < res3.length; i++) {
-                //                             if (ids.indexOf(res3[i]._id) < 0)
-                //                                 list3.push(res3[i]);
+                    //                     for (var i = 0; i < res3.length; i++) {
+                    //                         if (ids.indexOf(res3[i]._id) < 0)
+                    //                             list3.push(res3[i]);
 
-                //                         }
+                    //                     }
 
-                //                         var indexOfScenario3 = Math.floor(Math.random() * (list3.length));
-                //                         scen = list3[indexOfScenario3];
-                //                         repeated = ids.indexOf(scen._id) < 0 ? false : true;
-                //                         console.log("scenario from step 3 is ", typeof scen === "undefined");
-                //                         console.log("and the repeated is " + repeated);
-                //                     }
-                //                     else {
-                //                         var finalIndex = Math.floor(Math.random() * (res.length));
-                //                         scen = res[finalIndex];
-                //                         repeated = ids.indexOf(scen._id) < 0 ? false : true;
-                //                         console.log("scenario from final step is ", typeof scen === "undefined");
-                //                     }
-                //                 })
-                //             }
-                //         })
-                //     }
+                    //                     var indexOfScenario3 = Math.floor(Math.random() * (list3.length));
+                    //                     scen = list3[indexOfScenario3];
+                    //                     repeated = ids.indexOf(scen._id) < 0 ? false : true;
+                    //                     console.log("scenario from step 3 is ", typeof scen === "undefined");
+                    //                     console.log("and the repeated is " + repeated);
+                    //                 }
+                    //                 else {
+                    //                     var finalIndex = Math.floor(Math.random() * (res.length));
+                    //                     scen = res[finalIndex];
+                    //                     repeated = ids.indexOf(scen._id) < 0 ? false : true;
+                    //                     console.log("scenario from final step is ", typeof scen === "undefined");
+                    //                 }
+                    //             })
+                    //         }
+                    //     })
+                    // }
 
 
 
@@ -480,24 +518,25 @@ io.on('connection', function(socket) {
                          repeated=ids.indexOf(scen._id)>-1?true:false;
                          console.log("scenario from big step is ",typeof scen === "undefined");
                     })
+                    
+                    
                 }
-                  else{
-                      console.log("entered base step");
-                      var toGet = Math.random() * (res.length);
-                      console.log("topic is "+info.topic);
-                     scen=res[Math.floor(toGet)];
-                     repeated=ids.indexOf(scen._id)>-1?true:false;
-                     console.log("scenario from base step is ",typeof scen ==="undefined");
-                  }
+                else {
+                    console.log("entered base step");
+                    var toGet = Math.random() * (res.length);
+                    console.log("topic is " + info.topic);
+                    scen = res[Math.floor(toGet)];
+                    repeated = ids.indexOf(scen._id) > -1 ? true : false;
+                    console.log("scenario from base step is ", typeof scen === "undefined");
+                }
 
-                  if(!scen)
-                  {
-                      var toGet = Math.random() * (res.length);
-                      console.log("topic is "+info.topic);
-                     scen=res[Math.floor(toGet)];
-                     repeated=ids.indexOf(scen._id)>-1?true:false;
-                     console.log("scenario from fail step is ",typeof scen === "undefined"); 
-                  }
+                if (!scen) {
+                    var toGet = Math.random() * (res.length);
+                    console.log("topic is " + info.topic);
+                    scen = res[Math.floor(toGet)];
+                    repeated = ids.indexOf(scen._id) > -1 ? true : false;
+                    console.log("scenario from fail step is ", typeof scen === "undefined");
+                }
                 console.log("Point 4")
                 console.log("Ashry is here")
                 var send = {
@@ -768,7 +807,7 @@ io.on('connection', function(socket) {
             }, function(err, user) {
                 if (err) return console.log("err updating user after finish ", err);
 
-                 updateRank(updateInfo.user);
+                updateRank(updateInfo.user);
                 User.find({
                     "_id": updateInfo.user
                 }, function(err, users) {
@@ -843,6 +882,67 @@ io.on('connection', function(socket) {
             if (err) console.log("error finding user after update rank ", err);
             socket.emit("rank.updated", res[0]);
         })
+    });
+
+    socket.on("check-username", function(name) {
+        console.log("received request to check username: " + name)
+        User.find({
+            "userName": name
+        }, function(err, users) {
+            if (err) return console.log("error finding user to checks username ", err);
+            if (users.length == 0)
+            {
+                console.log("sending no username found")
+                socket.emit("no-username");
+            }
+            else
+                socket.emit("found-username",name);
+        })
+    });
+    
+    socket.on("send-password",function(name){
+        console.log("sending email....");
+        User.find({"userName":name},function(err,users){
+            if(err) return console.log("error getting users to reset password ");
+            var password=users[0].password;
+             
+          if(users.length==0)
+          console.log("no users found to send password mail");
+          else
+          {
+                 transporter.sendMail({
+                            from: 'pathogenious@pathogenious.me',
+                            to: name + "@guc.edu.eg",
+                            subject: 'PathoGenius password request',
+                            text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n'+password
+                        }, function(err, info) {
+                            if (err){
+                                 console.log("error sending mail with original transporter to "+name+"@guc.edu.eg ",err);
+                                 
+var transporterGmail = nodemailer.createTransport({
+   service: 'Gmail',
+    auth: {
+        user: 'pathogenious@gmail.com',
+        pass: 'ma05051989'
+    }
+    });
+    
+     transporterGmail.sendMail({
+            from: 'pathogenious@gmail.com',
+             to: name + "@guc.edu.eg",
+            subject: 'PathoGenius password request',
+         text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n'+password
+     }, function (err, info) {
+         if(err) return console.log("error sending mail with original transporter to "+name+"@guc.edu.eg ",err);
+         console.log(info)
+     });
+                                
+                            }
+                            socket.emit("reset-complete");
+                        });
+          }
+        })
+        
     })
 });
 
