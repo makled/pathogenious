@@ -27,6 +27,13 @@ var transporter = nodemailer.createTransport(
             pass: 'pathpass'
         }
     }));
+    var transporterGmail = nodemailer.createTransport({
+   service: 'Gmail',
+    auth: {
+        user: 'pathogenious@gmail.com',
+        pass: 'ma05051989'
+    }
+    });
 var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
@@ -572,14 +579,27 @@ io.on('connection', function(socket) {
 
 
                     Token.create(token, function(error, t) {
-                        transporter.sendMail({
+                        
+                               transporterGmail.sendMail({
+                            from: 'pathogenious@gmail.com',
+                            to: u.userName + "@student.guc.edu.eg",
+                            subject: 'verify pathogenious',
+                            text: 'welcome ' + user.displayName + ' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.me/verify/' + t._id
+                        }, function(err, info) {
+                            if (err) {
+                                console.log("error sending verification mail with gmail ",err);
+                            transporter.sendMail({
                             from: 'pathogenious@pathogenious.me',
                             to: u.userName + "@student.guc.edu.eg",
                             subject: 'verify pathogenious',
                             text: 'welcome ' + user.displayName + ' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.me/verify/' + t._id
                         }, function(err, info) {
-                            if (err) return console.log(err);
+                            if (err) return console.log("error sending mail with webfaction" ,err);
                         });
+                            }
+                        });
+                        
+                       
                         socket.emit("registration.complete");
                         console.log("user regisstered");
                     });
@@ -910,26 +930,20 @@ io.on('connection', function(socket) {
           console.log("no users found to send password mail");
           else
           {
-                 transporter.sendMail({
+                 transporterGmail.sendMail({
                             from: 'pathogenious@pathogenious.me',
-                            to: name + "@guc.edu.eg",
+                            to: name + "@student.guc.edu.eg",
                             subject: 'PathoGenius password request',
                             text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n'+password
                         }, function(err, info) {
                             if (err){
                                  console.log("error sending mail with original transporter to "+name+"@guc.edu.eg ",err);
                                  
-var transporterGmail = nodemailer.createTransport({
-   service: 'Gmail',
-    auth: {
-        user: 'pathogenious@gmail.com',
-        pass: 'ma05051989'
-    }
-    });
+
     
-     transporterGmail.sendMail({
+     transporter.sendMail({
             from: 'pathogenious@gmail.com',
-             to: name + "@guc.edu.eg",
+             to: name + "@student.guc.edu.eg",
             subject: 'PathoGenius password request',
          text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n'+password
      }, function (err, info) {
