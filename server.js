@@ -476,33 +476,33 @@ io.on('connection', function(socket) {
                 if (err) return console.log("error getting scenarios for confirmation ", err)
                 if (res.length == 0)
                     socket.emit("empty");
-                else if (users[0].currentScenarioScore != -1 && users[0].currentScenarioTopic != info.topic) {
-                    //  console.log(users[0].currentScenarioTopic);
-                    var send = {
-                        scenarioId: res[0].currentScenarioId,
-                        scenarioScore: res[0].currentScenarioScore,
-                        scenarioPosition: res[0].currentScenarioPosition,
-                        scenarioTopic: res[0].currentScenarioTopic,
-                        clickedTopic: info.topic
-                    }
-                    console.log("topic chosen was " + info.topic + " but unfinished topic was " + users[0].currentScenarioTopic)
-                        // socket.emit("unfinished.scenario.different.topic",send);
-                    socket.emit("continue-to-topic", info.topic);
-                }
-                else if (users[0].currentScenarioScore != -1 && users[0].currentScenarioTopic == info.topic) {
-                    //  console.log(users[0].currentScenarioTopic);
-                    var send = {
-                        scenarioId: users[0].currentScenarioId,
-                        scenarioScore: users[0].currentScenarioScore,
-                        scenarioPosition: users[0].currentScenarioPosition,
-                        scenarioTopic: users[0].currentScenarioTopic,
-                        clickedTopic: info.topic
-                    }
-                    console.log("topic chosen was " + info.topic + " but unfinished topic was " + users[0].currentScenarioTopic)
-                        //socket.emit("unfinished.scenario.same.topic",send);
-                    socket.emit("continue-to-topic", info.topic);
-                }
-                else if (res.length == size && res.length != 0)
+                // else if (users[0].currentScenarioScore != -1 && users[0].currentScenarioTopic != info.topic) {
+                //     //  console.log(users[0].currentScenarioTopic);
+                //     var send = {
+                //         scenarioId: res[0].currentScenarioId,
+                //         scenarioScore: res[0].currentScenarioScore,
+                //         scenarioPosition: res[0].currentScenarioPosition,
+                //         scenarioTopic: res[0].currentScenarioTopic,
+                //         clickedTopic: info.topic
+                //     }
+                //     console.log("topic chosen was " + info.topic + " but unfinished topic was " + users[0].currentScenarioTopic)
+                //         // socket.emit("unfinished.scenario.different.topic",send);
+                //     socket.emit("continue-to-topic", info.topic);
+                // }
+                // else if (users[0].currentScenarioScore != -1 && users[0].currentScenarioTopic == info.topic) {
+                //     //  console.log(users[0].currentScenarioTopic);
+                //     var send = {
+                //         scenarioId: users[0].currentScenarioId,
+                //         scenarioScore: users[0].currentScenarioScore,
+                //         scenarioPosition: users[0].currentScenarioPosition,
+                //         scenarioTopic: users[0].currentScenarioTopic,
+                //         clickedTopic: info.topic
+                //     }
+                //     console.log("topic chosen was " + info.topic + " but unfinished topic was " + users[0].currentScenarioTopic)
+                //         //socket.emit("unfinished.scenario.same.topic",send);
+                //     socket.emit("continue-to-topic", info.topic);
+                // }
+                else if (res.length <= size && res.length != 0)
                     socket.emit("done", info.topic);
                 else {
                     console.log("proceeding to topic " + info.topic);
@@ -554,6 +554,7 @@ io.on('connection', function(socket) {
             var toSet;
             if (updateInfo.topic == "Genetics") {
                 arr = users[0].answeredScenariosIdsGenetics;
+                if(updateInfo.repeated==false)
                 arr.push(updateInfo.scenario);
 
                 if (slevel == 1 && users[0].geneticsScore + updateInfo.score > 600)
@@ -571,6 +572,7 @@ io.on('connection', function(socket) {
             }
             else if (updateInfo.topic == "Cardiovascular") {
                 arr = users[0].answeredScenariosIdsCardio;
+                 if(updateInfo.repeated==false)
                 arr.push(updateInfo.scenario);
                 if (slevel == 1 && users[0].cardioScore + updateInfo.score > 600)
                     slevel = 2;
@@ -587,6 +589,7 @@ io.on('connection', function(socket) {
             }
             else if (updateInfo.topic == "CNS") {
                 arr = users[0].answeredScenariosIdsCNS;
+                 if(updateInfo.repeated==false)
                 arr.push(updateInfo.scenario);
                 if (slevel == 1 && users[0].cnsScore + updateInfo.score > 600)
                     slevel = 2;
@@ -603,6 +606,7 @@ io.on('connection', function(socket) {
             }
             else if (updateInfo.topic == "BloodCells") {
                 arr = users[0].answeredScenariosIdsBloodCells;
+                 if(updateInfo.repeated==false)
                 arr.push(updateInfo.scenario);
                 if (slevel == 1 && users[0].bloodCellsScore + updateInfo.score > 600)
                     slevel = 2;
@@ -631,7 +635,7 @@ io.on('connection', function(socket) {
             toSet.answeredQuestions = bigAnswered;
             toSet.correctQuestions = bigCorrect;
             console.log("here is update info " + JSON.stringify(updateInfo));
-            console.log("here is the toSet " + JSON.stringify(toSet));
+            console.log("here is the toSet " + JSON.stringify(toSet))
             User.update({
                 "_id": updateInfo.user
             }, {
