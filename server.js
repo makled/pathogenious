@@ -27,13 +27,13 @@ var transporter = nodemailer.createTransport(
             pass: 'pathpass'
         }
     }));
-    var transporterGmail = nodemailer.createTransport({
-   service: 'Gmail',
+var transporterGmail = nodemailer.createTransport({
+    service: 'Gmail',
     auth: {
         user: 'pathogenious@gmail.com',
         pass: 'ma05051989'
     }
-    });
+});
 var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
@@ -391,27 +391,27 @@ io.on('connection', function(socket) {
 
 
                     Token.create(token, function(error, t) {
-                        
-                               transporterGmail.sendMail({
+
+                        transporterGmail.sendMail({
                             from: 'pathogenious@gmail.com',
                             to: u.userName + "@student.guc.edu.eg",
                             subject: 'verify pathogenious',
                             text: 'welcome ' + user.displayName + ' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.me/verify/' + t._id
                         }, function(err, info) {
                             if (err) {
-                                console.log("error sending verification mail with gmail ",err);
-                            transporter.sendMail({
-                            from: 'pathogenious@pathogenious.me',
-                            to: u.userName + "@student.guc.edu.eg",
-                            subject: 'verify pathogenious',
-                            text: 'welcome ' + user.displayName + ' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.me/verify/' + t._id
-                        }, function(err, info) {
-                            if (err) return console.log("error sending mail with webfaction" ,err);
-                        });
+                                console.log("error sending verification mail with gmail ", err);
+                                transporter.sendMail({
+                                    from: 'pathogenious@pathogenious.me',
+                                    to: u.userName + "@student.guc.edu.eg",
+                                    subject: 'verify pathogenious',
+                                    text: 'welcome ' + user.displayName + ' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.me/verify/' + t._id
+                                }, function(err, info) {
+                                    if (err) return console.log("error sending mail with webfaction", err);
+                                });
                             }
                         });
-                        
-                       
+
+
                         socket.emit("registration.complete");
                         console.log("user regisstered");
                     });
@@ -554,8 +554,8 @@ io.on('connection', function(socket) {
             var toSet;
             if (updateInfo.topic == "Genetics") {
                 arr = users[0].answeredScenariosIdsGenetics;
-                if(updateInfo.repeated==false)
-                arr.push(updateInfo.scenario);
+                if (updateInfo.repeated == false)
+                    arr.push(updateInfo.scenario);
 
                 if (slevel == 1 && users[0].geneticsScore + updateInfo.score > 600)
                     slevel = 2;
@@ -572,8 +572,8 @@ io.on('connection', function(socket) {
             }
             else if (updateInfo.topic == "Cardiovascular") {
                 arr = users[0].answeredScenariosIdsCardio;
-                 if(updateInfo.repeated==false)
-                arr.push(updateInfo.scenario);
+                if (updateInfo.repeated == false)
+                    arr.push(updateInfo.scenario);
                 if (slevel == 1 && users[0].cardioScore + updateInfo.score > 600)
                     slevel = 2;
                 else if (slevel == 2 && users[0].cardioScore + updateInfo.score > 1400)
@@ -589,8 +589,8 @@ io.on('connection', function(socket) {
             }
             else if (updateInfo.topic == "CNS") {
                 arr = users[0].answeredScenariosIdsCNS;
-                 if(updateInfo.repeated==false)
-                arr.push(updateInfo.scenario);
+                if (updateInfo.repeated == false)
+                    arr.push(updateInfo.scenario);
                 if (slevel == 1 && users[0].cnsScore + updateInfo.score > 600)
                     slevel = 2;
                 else if (slevel == 2 && users[0].cnsScore + updateInfo.score > 1400)
@@ -606,8 +606,8 @@ io.on('connection', function(socket) {
             }
             else if (updateInfo.topic == "BloodCells") {
                 arr = users[0].answeredScenariosIdsBloodCells;
-                 if(updateInfo.repeated==false)
-                arr.push(updateInfo.scenario);
+                if (updateInfo.repeated == false)
+                    arr.push(updateInfo.scenario);
                 if (slevel == 1 && users[0].bloodCellsScore + updateInfo.score > 600)
                     slevel = 2;
                 else if (slevel == 2 && users[0].bloodCellsScore + updateInfo.score > 1400)
@@ -643,7 +643,7 @@ io.on('connection', function(socket) {
             }, function(err, user) {
                 if (err) return console.log("err updating user after finish ", err);
 
-                updateRank(updateInfo.user);
+                updateAllRanks();
                 User.find({
                     "_id": updateInfo.user
                 }, function(err, users) {
@@ -654,41 +654,113 @@ io.on('connection', function(socket) {
         })
     });
 
-    socket.on("get.possible.scenario.ung", function(topic) {
+    socket.on("get.possible.scenario.ung", function(send) {
+         console.log("send received for ung        "+JSON.stringify(send));
         Scenario.find({
-            "topic": topic
+            "topic": send.topic
         }, function(err, scenarios) {
             if (err) return console.log("error getting ung scenarios ", err);
-            var rand = Math.floor(Math.random() * scenarios.length);
-            socket.emit("receive.possible.scenario.ung", scenarios[rand]);
+            User.find({"_id":send.user},function(err,users){
+                if(err) return console.log("error getting ung users to send scenarios ",err);
+                var arr=[];
+               console.log("send received for ung        "+JSON.stringify(send))
+                if(send.topic=="Genetics")
+                arr=users[0].answeredScenariosIdsGenetics;
+                else if(send.topic=="Cardiovascular")
+                arr=users[0].answeredScenariosIdsCardio;
+                else if(send.topic=="CNS")
+                arr=users[0].answeredScenariosIdsCNS;
+                else if(send.topic=="Liver")
+                arr=users[0].answeredScenariosIdsLiver;
+               
+                var b = checkFull(arr, scenarios);
+
+                if (b == false) {
+                    console.log("Point 3.5.1")
+                    console.log("entered finding step 1");
+
+                    var list = [];
+
+                    for (var i = 0; i < scenarios.length; i++) {
+                        if (arr.indexOf(scenarios[i]._id) < 0)
+                            list.push(scenarios[i]);
+
+                    }
+
+                    var indexOfScenario = Math.floor(Math.random() * (list.length));
+                  var  scen = list[indexOfScenario];
+                  var  repeated = arr.indexOf(scen._id) < 0 ? false : true;
+                    console.log("scenario from step 1 ung is ", typeof scen === "undefined");
+                    console.log("and the repeated is " + repeated);
+                    var send1 =({
+                        scenario: scen,
+                        repeated: repeated
+                    });
+                    socket.emit("receive.possible.scenario.ung",send1);
+                }
+                else
+                {
+                     var random=Math.floor(Math.random()*scenarios.length);
+                      var  scen2 = scenarios[random];
+                      console.log(scen2.topic);
+                  var  repeated2 = arr.indexOf(scen2._id) < 0 ? false : true;
+                    console.log("scenario from step 1 ung is ", typeof scen === "undefined");
+                    console.log("and the repeated is " + repeated);
+                    var send2 =({
+                        scenario: scen2,
+                        repeated: repeated2
+                    });
+                    socket.emit("receive.possible.scenario.ung",send2);
+                }
+            })
         })
     });
 
     socket.on("update.player.ung", function(info) {
-        console.log("info received from update ung player ", info);
+        console.log("info topic received from update ung player ", info.updatetopic);
         User.find({
             "_id": info.user
         }, function(err, users) {
             if (err) console.log("error getting player to update non gamified ", err)
-            var toSet;
-            if (info.topic == "Genetics") {
+            var toSet={};
+            var arr=[];
+            if (info.updatetopic == "Genetics") {
+                if(users[0].answeredScenariosIdsGenetics)
+                arr=users[0].answeredScenariosIdsGenetics;
+                arr.push(info.scenario);
+                
                 toSet = {
-                    correctScenariosGenetics: users[0].correctScenariosGenetics + 1
+                    correctScenariosGenetics:info.isrepeated==false? users[0].correctScenariosGenetics + 1:users[0].correctScenariosGenetics,
+                    answeredScenariosIdsGenetics:arr
+                    
                 }
             }
-            else if (info.topic == "Cardiovascular") {
+            else if (info.updatetopic == "Cardiovascular") {
+                 if(users[0].answeredScenariosIdsCardio)
+                arr=users[0].answeredScenariosIdsCardio;
+                arr.push(info.scenario);
                 toSet = {
-                    correctScenariosCardio: users[0].correctScenariosCardio + 1
+                    correctScenariosCardio:info.isrepeated==false? users[0].correctScenariosCardio + 1:users[0].correctScenariosCardio,
+                    answeredScenariosIdsCardio:arr
+                    
                 }
             }
-            else if (info.topic == "CNS") {
+            else if (info.updatetopic == "CNS") {
+                 if(users[0].answeredScenariosIdsCNS)
+                arr=users[0].answeredScenariosIdsCNS;
+                arr.push(info.scenario);
                 toSet = {
-                    correctScenariosCNS: users[0].correctScenariosCNS + 1
+                    correctScenariosCNS:info.isrepeated==false? users[0].correctScenariosCNS + 1:users[0].correctScenariosCNS,
+                    answeredScenariosIdsCNS:arr
                 }
             }
-            else if (info.topic == "BloodCells") {
+            else if (info.updatetopic == "BloodCells") {
+                 if(users[0].answeredScenariosIdsBloodCells)
+                arr=users[0].answeredScenariosIdsBloodCells;
+                arr.push(info.scenario);
                 toSet = {
-                    correctScenariosGenetics: users[0].correctScenariosGenetics + 1
+                    correctScenariosGenetics:info.isrepeated==false? users[0].correctScenariosGenetics + 1:users[0].correctScenariosBloodCells,
+                    answeredScenariosIdsBloodCells:arr
                 }
             }
             console.log("here is the toSet of the ung player ", toSet);
@@ -703,7 +775,7 @@ io.on('connection', function(socket) {
                     "_id": users[0]._id
                 }, function(err, users) {
                     if (err) console.log("error finding ung user for the last time after update ", err);
-                    console.log("here is the player to send back to the ung player ", users[0]);
+                   // console.log("here is the player to send back to the ung player ", users[0]);
                     socket.emit("update.finished.ung", users[0]);
                 })
             })
@@ -726,54 +798,63 @@ io.on('connection', function(socket) {
             "userName": name
         }, function(err, users) {
             if (err) return console.log("error finding user to checks username ", err);
-            if (users.length == 0)
-            {
+            if (users.length == 0) {
                 console.log("sending no username found")
                 socket.emit("no-username");
             }
             else
-                socket.emit("found-username",name);
+                socket.emit("found-username", name);
         })
     });
-    
-    socket.on("send-password",function(name){
+
+    socket.on("send-password", function(name) {
         console.log("sending email....");
-        User.find({"userName":name},function(err,users){
-            if(err) return console.log("error getting users to reset password ");
-            var password=users[0].password;
-             
-          if(users.length==0)
-          console.log("no users found to send password mail");
-          else
-          {
-                 transporterGmail.sendMail({
-                            from: 'pathogenious@pathogenious.me',
+        User.find({
+            "userName": name
+        }, function(err, users) {
+            if (err) return console.log("error getting users to reset password ");
+            var password = users[0].password;
+
+            if (users.length == 0)
+                console.log("no users found to send password mail");
+            else {
+                transporterGmail.sendMail({
+                    from: 'pathogenious@pathogenious.me',
+                    to: name + "@student.guc.edu.eg",
+                    subject: 'PathoGenius password request',
+                    text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n' + password
+                }, function(err, info) {
+                    if (err) {
+                        console.log("error sending mail with original transporter to " + name + "@guc.edu.eg ", err);
+
+
+
+                        transporter.sendMail({
+                            from: 'pathogenious@gmail.com',
                             to: name + "@student.guc.edu.eg",
                             subject: 'PathoGenius password request',
-                            text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n'+password
+                            text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n' + password
                         }, function(err, info) {
-                            if (err){
-                                 console.log("error sending mail with original transporter to "+name+"@guc.edu.eg ",err);
-                                 
-
-    
-     transporter.sendMail({
-            from: 'pathogenious@gmail.com',
-             to: name + "@student.guc.edu.eg",
-            subject: 'PathoGenius password request',
-         text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n'+password
-     }, function (err, info) {
-         if(err) return console.log("error sending mail with original transporter to "+name+"@guc.edu.eg ",err);
-         console.log(info)
-     });
-                                
-                            }
-                            socket.emit("reset-complete");
+                            if (err) return console.log("error sending mail with original transporter to " + name + "@guc.edu.eg ", err);
+                            console.log(info)
                         });
-          }
+
+                    }
+                    socket.emit("reset-complete");
+                });
+            }
         })
-        
+
     })
+
+    socket.on("get.all.users", function() {
+        User.find().sort({
+            totalScore: -1
+        }).exec(function(err, users) {
+            if (err) return console.log("error getting users for stats ", err);
+            socket.emit("receive.all.users", users);
+        })
+    });
 });
 
 
@@ -804,9 +885,45 @@ function updateRank(id) {
         })
     })
 }
+function updateAllRanks() {
+    User.find().sort({
+        totalScore: -1
+    }).exec(function(err, res) {
+        if (err) return console.log("error fetching users for ranking ", err)
+        var currentScore = res[0].totalScore;
+        var r = 1;
+        for (var i = 0; i<res.length; i++) {
+            if (res[i].gamified==true && res[i].totalScore != currentScore) {
+                currentScore = res[i].totalScore;
+                r++;
+            }
+                 User.update({
+            "_id": res[i]._id
+        }, {
+            $set: {
+                rank: r
+            }
+        }, function(err, response) {
+            if (err) return console.log("error updating player rank ", err)
+            console.log("user rank updated to rank " + r);
+        })
+            
+
+        }
+       
+    });
+}
+
+function checkFull(ids, res, level) {
+    var count = 0;
+    for (var i = 0; i < res.length; i++) {
+        if (ids.indexOf(res[i]._id) > -1)
+            count++;
+    }
+    return count == res.length;
+}
 
 server.listen(process.env.PORT || 8080, process.env.IP || "0.0.0.0", function() {
     var addr = server.address();
     console.log("Chat server listening at", addr.address + ":" + addr.port);
 });
-

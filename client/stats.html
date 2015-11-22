@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pathogenious Statistics</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+</head>
+
+<body>
+    <H1>Gamified version</H1>
+    <br/>
+    <br/>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <H3 data-toggle="collapse" data-target="#Genetics" href="#">Genetics:</H2>
+  </div>
+   <div class="panel-body">
+       <div class="collapse-in" id="Genetics">
+    <table class="table table-hover table-condensed table-responsive">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tutorial</th>
+        <th>Name</th>
+        <th>Genetics Score</th>
+        <th>Genetics Level</th>
+        <th>Genetics Scenarios solved</th>
+        <th>Genetics Accuracy</th>
+        <th>Total Score</th>
+        <th>Rank</th>
+      </tr>
+    </thead>
+    <tbody class="genetics-stats-gamified">
+        
+    </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+        <br/>
+        <br/>
+        <H2>Non-Gamified</H2>
+         <table class="table table-hover table-condensed table-responsive">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tutorial</th>
+        <th>Name</th>
+        <th>Genetics Scenarios solved(including repeated encounters)</th>
+      </tr>
+    </thead>
+    <tbody class="genetics-stats-ng">
+        
+    </tbody>
+        </table>
+    
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="js/stats.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@ var choices=[];
 var currentScenario;
 var topic;
 var currentUser;
+var repeated;
 var running=false;
 $(function() {
     
@@ -148,9 +149,12 @@ function renderRoom(room) {
             sessionStorage.removeItem("currentScenarioTopic");
             sessionStorage.removeItem("currentScenarioScore");
             sessionStorage.removeItem("currentScenarioPosition");
+            console.log("session storage topic before sending it "+sessionStorage.pathogenioustopic)
             var updateInfo={
                 user:currentUser._id,
-                topic:topic
+                updatetopic:sessionStorage.pathogenioustopic,
+                scenario:currentScenario._id,
+                isrepeated:repeated
             };
            socket.emit("update.player.ung",updateInfo);
           //  socket.emit("update.player",toBeUpdated);
@@ -383,11 +387,12 @@ $(".play-genetics").on("click",function(){
                 });
     }
     else{
-        running=true;
-    topic="Genetics";
-    sessionStorage.pathogenioustopic="Genetics";
-    $("#topic-name").html("Genetics");
-    socket.emit("get.possible.scenario.ung","Genetics");
+   
+     var info={
+        topic:"Genetics",
+        user:currentUser._id
+    };
+    socket.emit("confirm-not-done",info);
     }
 });
 
@@ -410,11 +415,11 @@ $(".play-cardio").on("click",function(){
     }
     else{
     
-    running=true;
-     topic="CardioVascular";
-     sessionStorage.pathogenioustopic="Cardiovascular";
-    $("#topic-name").html("Cardiovascular");
-    socket.emit("get.possible.scenario.ung","Cardiovascular");
+    var info={
+        topic:"Cardiovascular",
+        user:currentUser._id
+    };
+    socket.emit("confirm-not-done",info);
     }
 });
 
@@ -437,11 +442,11 @@ $(".play-cns").on("click",function(){
     }
     else
     {
-    running=true;
-     topic="CNS";
-     sessionStorage.pathogenioustopic="CNS";
-    $("#topic-name").html("CNS");
-    socket.emit("get.possible.scenario.ung","CNS");
+    var info={
+        topic:"CNS",
+        user:currentUser._id
+    };
+    socket.emit("confirm-not-done",info);
     }
 });
 
@@ -464,16 +469,63 @@ $(".play-bloodcells").on("click",function(){
     }
     else
     {
-        running=true;
-     topic="BloodCells";
-     sessionStorage.pathogenioustopic="BloodCells";
-    $("#topic-name").html("BloodCells");
-    socket.emit("get.possible.scenario.ung","BloodCells");
+        var info={
+        topic:"BloodCells",
+        user:(JSON.parse(sessionStorage.pathogenioususer))._id
+    };
+    socket.emit("confirm-not-done",info);
     }
 });
 
-socket.on("receive.possible.scenario.ung",function(scenario){
-    currentScenario=scenario;
+socket.on("receive.possible.scenario.ung",function(send){
+    currentScenario=send.scenario;
+    repeated=send.repeated;
+    sessionStorage.pathogenioustopic=send.scenario.topic;
+    if(repeated==true)
+   {
+       swal("Repeated Scenario","You solved this scenario before . You can still resolve it to revise what you have done . However , you wont get any score by resolving it . You can skip solving it at any time by clicking on the skip scenario button ","warning");
+       
+   }
+   
      document.getElementById("skip").style.display = "inherit";
-    renderRoom(scenario.ini);
+    renderRoom(send.scenario.ini);
+   
 })
+
+socket.on("done",function(topic){
+    swal({   title: "Topic finished !!",
+    text: "You solved all the scenarios in this topic . would you like to revise what you have solved ?!!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, I wanna!",
+    cancelButtonText: "No, choose another topic",
+    closeOnConfirm: true,
+    closeOnCancel: true },
+    function(isConfirm){
+        if (isConfirm) {
+           sessionStorage.pathogenioustopic=topic;
+        running=true;
+     topic=topic;
+     $("#topic-name").html(topic);
+     var send={
+         topic:topic,
+         user:currentUser._id
+     };
+     socket.emit("get.possible.scenario.ung",send);
+            } 
+                });
+});
+
+socket.on("continue-to-topic",function(topic){
+    sessionStorage.pathogenioustopic=topic;
+        running=true;
+     topic=topic;
+     $("#topic-name").html(topic);
+     var send={
+         topic:topic,
+         user:currentUser._id
+     };
+     console.log("sent to server   "+JSON.stringify(send))
+     socket.emit("get.possible.scenario.ung",send);
+});
