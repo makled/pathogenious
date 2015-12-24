@@ -341,20 +341,36 @@ io.on('connection', function(socket) {
     });
 
     socket.on('request.update', function(request) {
-        Scenario.findById(request.id, function(err, scenario) {
-            if (err) return console.log(err);
+        //     Scenario.findById(request.id, function(err, scenario) {
+        //         if (err) return console.log(err);
 
-            scenario.topic = request.scenario.topic;
-            scenario.lvl = request.scenario.lvl;
-            scenario.ini = request.scenario.ini;
-            scenario.rooms = request.scenario.rooms;
-            scenario.end = request.scenario.end;
-            scenario.save(function(err) {
-                if (err) return console.log(err);
-                console.log(JSON.stringify(scenario.rooms));
-                socket.emit('update.done');
-            });
-        });
+        //         scenario.topic = request.scenario.topic;
+        //         scenario.lvl = request.scenario.lvl;
+        //         scenario.ini = request.scenario.ini;
+        //         scenario.rooms = request.scenario.rooms;
+        //         scenario.end = request.scenario.end;
+        //         scenario.save(function(err) {
+        //             if (err) return console.log(err);
+        //             console.log(JSON.stringify(scenario.rooms));
+        //             socket.emit('update.done');
+        //         });
+        //     });
+        Scenario.update({
+            "_id": request.id
+        }, {
+            $set: {
+                "topic": request.scenario.topic,
+                "lvl": request.scenario.lvl,
+                "ini": request.scenario.ini,
+                "rooms": request.scenario.rooms,
+                "end": request.scenario.end
+            }
+        }, function(err, res) {
+            if (err) return console.log("error getting scenario for update ", err);
+            socket.emit('update.done');
+            
+
+        })
     });
 
     socket.on('request.remove', function(id) {
@@ -655,24 +671,26 @@ io.on('connection', function(socket) {
     });
 
     socket.on("get.possible.scenario.ung", function(send) {
-         console.log("send received for ung        "+JSON.stringify(send));
+        console.log("send received for ung        " + JSON.stringify(send));
         Scenario.find({
             "topic": send.topic
         }, function(err, scenarios) {
             if (err) return console.log("error getting ung scenarios ", err);
-            User.find({"_id":send.user},function(err,users){
-                if(err) return console.log("error getting ung users to send scenarios ",err);
-                var arr=[];
-               console.log("send received for ung        "+JSON.stringify(send))
-                if(send.topic=="Genetics")
-                arr=users[0].answeredScenariosIdsGenetics;
-                else if(send.topic=="Cardiovascular")
-                arr=users[0].answeredScenariosIdsCardio;
-                else if(send.topic=="CNS")
-                arr=users[0].answeredScenariosIdsCNS;
-                else if(send.topic=="Liver")
-                arr=users[0].answeredScenariosIdsLiver;
-               
+            User.find({
+                "_id": send.user
+            }, function(err, users) {
+                if (err) return console.log("error getting ung users to send scenarios ", err);
+                var arr = [];
+                console.log("send received for ung        " + JSON.stringify(send))
+                if (send.topic == "Genetics")
+                    arr = users[0].answeredScenariosIdsGenetics;
+                else if (send.topic == "Cardiovascular")
+                    arr = users[0].answeredScenariosIdsCardio;
+                else if (send.topic == "CNS")
+                    arr = users[0].answeredScenariosIdsCNS;
+                else if (send.topic == "Liver")
+                    arr = users[0].answeredScenariosIdsLiver;
+
                 var b = checkFull(arr, scenarios);
 
                 if (b == false) {
@@ -688,29 +706,28 @@ io.on('connection', function(socket) {
                     }
 
                     var indexOfScenario = Math.floor(Math.random() * (list.length));
-                  var  scen = list[indexOfScenario];
-                  var  repeated = arr.indexOf(scen._id) < 0 ? false : true;
+                    var scen = list[indexOfScenario];
+                    var repeated = arr.indexOf(scen._id) < 0 ? false : true;
                     console.log("scenario from step 1 ung is ", typeof scen === "undefined");
                     console.log("and the repeated is " + repeated);
-                    var send1 =({
+                    var send1 = ({
                         scenario: scen,
                         repeated: repeated
                     });
-                    socket.emit("receive.possible.scenario.ung",send1);
+                    socket.emit("receive.possible.scenario.ung", send1);
                 }
-                else
-                {
-                     var random=Math.floor(Math.random()*scenarios.length);
-                      var  scen2 = scenarios[random];
-                      console.log(scen2.topic);
-                  var  repeated2 = arr.indexOf(scen2._id) < 0 ? false : true;
+                else {
+                    var random = Math.floor(Math.random() * scenarios.length);
+                    var scen2 = scenarios[random];
+                    console.log(scen2.topic);
+                    var repeated2 = arr.indexOf(scen2._id) < 0 ? false : true;
                     console.log("scenario from step 1 ung is ", typeof scen === "undefined");
                     console.log("and the repeated is " + repeated);
-                    var send2 =({
+                    var send2 = ({
                         scenario: scen2,
                         repeated: repeated2
                     });
-                    socket.emit("receive.possible.scenario.ung",send2);
+                    socket.emit("receive.possible.scenario.ung", send2);
                 }
             })
         })
@@ -722,45 +739,45 @@ io.on('connection', function(socket) {
             "_id": info.user
         }, function(err, users) {
             if (err) console.log("error getting player to update non gamified ", err)
-            var toSet={};
-            var arr=[];
+            var toSet = {};
+            var arr = [];
             if (info.updatetopic == "Genetics") {
-                if(users[0].answeredScenariosIdsGenetics)
-                arr=users[0].answeredScenariosIdsGenetics;
+                if (users[0].answeredScenariosIdsGenetics)
+                    arr = users[0].answeredScenariosIdsGenetics;
                 arr.push(info.scenario);
-                
+
                 toSet = {
-                    correctScenariosGenetics:info.isrepeated==false? users[0].correctScenariosGenetics + 1:users[0].correctScenariosGenetics,
-                    answeredScenariosIdsGenetics:arr
-                    
+                    correctScenariosGenetics: info.isrepeated == false ? users[0].correctScenariosGenetics + 1 : users[0].correctScenariosGenetics,
+                    answeredScenariosIdsGenetics: arr
+
                 }
             }
             else if (info.updatetopic == "Cardiovascular") {
-                 if(users[0].answeredScenariosIdsCardio)
-                arr=users[0].answeredScenariosIdsCardio;
+                if (users[0].answeredScenariosIdsCardio)
+                    arr = users[0].answeredScenariosIdsCardio;
                 arr.push(info.scenario);
                 toSet = {
-                    correctScenariosCardio:info.isrepeated==false? users[0].correctScenariosCardio + 1:users[0].correctScenariosCardio,
-                    answeredScenariosIdsCardio:arr
-                    
+                    correctScenariosCardio: info.isrepeated == false ? users[0].correctScenariosCardio + 1 : users[0].correctScenariosCardio,
+                    answeredScenariosIdsCardio: arr
+
                 }
             }
             else if (info.updatetopic == "CNS") {
-                 if(users[0].answeredScenariosIdsCNS)
-                arr=users[0].answeredScenariosIdsCNS;
+                if (users[0].answeredScenariosIdsCNS)
+                    arr = users[0].answeredScenariosIdsCNS;
                 arr.push(info.scenario);
                 toSet = {
-                    correctScenariosCNS:info.isrepeated==false? users[0].correctScenariosCNS + 1:users[0].correctScenariosCNS,
-                    answeredScenariosIdsCNS:arr
+                    correctScenariosCNS: info.isrepeated == false ? users[0].correctScenariosCNS + 1 : users[0].correctScenariosCNS,
+                    answeredScenariosIdsCNS: arr
                 }
             }
             else if (info.updatetopic == "BloodCells") {
-                 if(users[0].answeredScenariosIdsBloodCells)
-                arr=users[0].answeredScenariosIdsBloodCells;
+                if (users[0].answeredScenariosIdsBloodCells)
+                    arr = users[0].answeredScenariosIdsBloodCells;
                 arr.push(info.scenario);
                 toSet = {
-                    correctScenariosGenetics:info.isrepeated==false? users[0].correctScenariosGenetics + 1:users[0].correctScenariosBloodCells,
-                    answeredScenariosIdsBloodCells:arr
+                    correctScenariosGenetics: info.isrepeated == false ? users[0].correctScenariosGenetics + 1 : users[0].correctScenariosBloodCells,
+                    answeredScenariosIdsBloodCells: arr
                 }
             }
             console.log("here is the toSet of the ung player ", toSet);
@@ -775,7 +792,7 @@ io.on('connection', function(socket) {
                     "_id": users[0]._id
                 }, function(err, users) {
                     if (err) console.log("error finding ung user for the last time after update ", err);
-                   // console.log("here is the player to send back to the ung player ", users[0]);
+                    // console.log("here is the player to send back to the ung player ", users[0]);
                     socket.emit("update.finished.ung", users[0]);
                 })
             })
@@ -885,6 +902,7 @@ function updateRank(id) {
         })
     })
 }
+
 function updateAllRanks() {
     User.find().sort({
         totalScore: -1
@@ -892,25 +910,25 @@ function updateAllRanks() {
         if (err) return console.log("error fetching users for ranking ", err)
         var currentScore = res[0].totalScore;
         var r = 1;
-        for (var i = 0; i<res.length; i++) {
-            if (res[i].gamified==true && res[i].totalScore != currentScore) {
+        for (var i = 0; i < res.length; i++) {
+            if (res[i].gamified == true && res[i].totalScore != currentScore) {
                 currentScore = res[i].totalScore;
                 r++;
             }
-                 User.update({
-            "_id": res[i]._id
-        }, {
-            $set: {
-                rank: r
-            }
-        }, function(err, response) {
-            if (err) return console.log("error updating player rank ", err)
-            console.log("user rank updated to rank " + r);
-        })
-            
+            User.update({
+                "_id": res[i]._id
+            }, {
+                $set: {
+                    rank: r
+                }
+            }, function(err, response) {
+                if (err) return console.log("error updating player rank ", err)
+                console.log("user rank updated to rank " + r);
+            })
+
 
         }
-       
+
     });
 }
 
