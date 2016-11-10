@@ -1,0 +1,383 @@
+Serial,ApplicantID,Full Name,Overall
+1,2801140,Ahmed Mohamed Ahmed Aboelazm,98��
+2,2800471,Yousef Mohammed Ahmed Aboshady,97��
+3,2800479,Karim Wael Zakaria Ahmed Abdel Rahman,97��
+4,28011020,Mariam Ahmed Mouhamed Azab El-Zohairy,97��
+5,28011382,Yasmina Nasser El Sayed El Sayed Hassaan,97��
+6,2803996,Peter Fawzy Nageeb Seif,96��
+7,2804880,Madina Mahmoud Ali,96��
+8,2804887,Farah Ahmed Ahmed Shafik Ahmed Soliman,95��
+9,2807993,Ghada Abdelhady Reda,95��
+10,2803467,Christine Adel Sedky Youssef,95��
+11,28012828,Yara Mohamad Mohamad Taha Nagib,95��
+12,28010603,Fatma Mohamed Salem Aly Salem,95��
+13,28011685,Shery Maged Wadea Herz,94��
+14,28013229,Reham Waheed Al-Ajami,94��
+15,2802734,Maie Ehab Ahmed Nazih,94��
+16,2802265,Perihan Ashraf Moahmed Mohamed El Meselhy Ammar,94��
+17,28013939,Michael Emad George Moawad,93��
+18,2800436,Mariz Amir Helmy Khalil,93��
+19,2801205,Mariam Gamal Mohamed El Said Tahoun,93��
+20,2802117,Ahmed Ameer Taha Mahmoud Ramadan,93��
+21,2803857,Monica Mohsen Fahmy Armanious,93��
+22,2804124,Martina Ashraf Zaghloul Morcos,93��
+23,2804952,Lobna Ali Onsi Abdel Salam Mohamed Said,93��
+24,2806615,Amr Mohamed Mohamed Ismail Radey,92��
+25,2809114,Salma Magdy Abd Elwakil Abd Elsalam,92��
+26,2809035,Zeina Hassan Mohamed Moubarak,92��
+27,2802875,Nourhan Ahmed Adel Salah El Din Baseem,92��
+28,2801464,Rawan Mohamed Mohamed Abdelmoniem Hassan,92��
+29,2800581,Abdalla Mohamed Kamal Abdo Eid,92��
+30,2800332,Omar Mohamed Rashad Amin Mohamed Ali,92��
+31,2804324,Yara Medhat Abd El Hameed Sadek,92��
+32,28010291,Abdallah Hatem Hassan Hosni Ahmed Gab Allah,92��
+33,28010413,Nourhan Tarek Abdel Moneim,91��
+34,28010681,Areej Ashraf Ibrahim El-Dosouki Soliman,91��
+35,28012645,Ahmed Hossam El-Deen Abd El-Bare Hamouda,91��
+36,2801073,Samira Ayman Ahmed Talaat Ameir,91��
+37,2801924,Monica Akram Kamal Ghobrial,91��
+38,2802116,Mohamed Hany Adel Farah,91��
+39,2802333,Farah Mahmoud Noeman Saeed Ahmed,90��
+40,2804690,Michellin Raouf Risk Alla,90��
+41,2805076,Aya Ashraf Ezzat Ali Ismail,90��
+42,28012441,Aisha Fadl Ahmed Elbahey Ibrahim,90��
+43,28010909,Fady Habib Fayek Habib,90��
+44,28011870,Sara Saleh Hussein Abd Elmegid,90��
+45,28011751,Mostafa Taha Saeed Abdelwahab,89��
+46,28011098,Ahmad Taher Mohamed Amin Hafez,89��
+47,28010931,Amira Khaled Sayed Hamdy,89��
+48,28010045,Mayar Azzam Abd Elhalim,89��
+49,28012608,Naira Esmail Mohamed El Nady,89��
+50,2804375,Alaa Mohammed Berham Abu Hijazi Hamoud,89��
+51,2801148,Mennat-Allah Alaa Eldin Ahmed Abdin,89��
+52,2805025,Maria Ashraf Fekry Abd El Latif,89��
+53,2802347,Mohamed Hafez Arafa Hafez Gamaa,88��
+54,2804993,Nada Amr Gamal El Din Ahmed Mahmoud,88��
+55,2805552,Radwa Mohamed Ramzy Refaat Abu El Einen,88��
+56,2808214,Halla Samir Mohamed Abd Elrahman,88��
+57,2809946,Nourhan Lotfy Ramadan,88��
+58,28012243,Asmaa Hamdy Abd El Hamed Ali Abdelaal,87��
+59,28012485,Mostafa Hassan Rmdan Saleh Ali,87��
+60,28012662,Yomna Gamal Sabri Ali Farag,87��
+61,2809788,Ahmed Elsayed Fahmy Elsayed,87��
+62,2806873,Yasmin Ayman Abo Khoder El Agamy Shahin,87��
+63,2805033,Nesma Tarek Mohamed Mohamed Sherif,87��
+64,2802804,Salwa Samy Abdel Aziz Ismaeil Fayed,87��
+65,2806300,Sherwit Omar El Dabaa Mohamed,87��
+66,28012868,Asmaa Maher Saied Ibrahim El Tantawi,87��
+67,2800366,Erini Mamdouh Botros Billatos,87��
+68,28013105,Shaden Abdelrahman Mohammed Abdalla,86��
+69,2802963,Gina Khaled Abdel Kader Ali El Masry,86��
+70,2803076,Omar Ezzat Elsayed Abdo Zahran,86��
+71,2802345,Rozan Abdelaal Mohamed Ismaeil El Ghandour,86��
+72,2805892,Yasmen Ahmed Sobhy Gad,86��
+73,2808642,Kerols Maged Helmy Ghatas Beshara,86��
+74,28012308,Alaa Mohamed Mahmoud Samy Ghallab,86��
+75,28012351,Mirna Nader Sadek Amin,86��
+76,28012063,Reham Kamal Elsiad Fahmy,85��
+77,28011257,Fayrouz Safwat Abd Elmaqsoud Ali,85��
+78,2805120,Mennatullah Desoky Ahmed Mohamed Hammad,85��
+79,2805356,Ahmed Khaled Mohamd Ezat Ahmed Shimi,85��
+80,2802975,Dalia Mohamed Galal Abdel Aziem Galal,85��
+81,2802427,Noha Nabil Farid Elsawaf,85��
+82,2804810,Christine Amir Abd El Malak Yousif,85��
+83,2801668,Rana Abdel Moniem Abd El Aziz Gemeiy,85��
+84,2801149,Nourhan Khaled Tolba Mahmoud Araam,85��
+85,2803104,Shireen Gamal Mahmoud Ibrahim Hussein,84��
+86,2807012,Mira Amir Adeeb Soliman,84��
+87,2808090,Sara Atef Mohamed Ibrahim Marzouk,84��
+88,28012180,Menna Ahmed Youssef Gamal,84��
+89,28010064,Marina Moheb Lotfallah Amin,84��
+90,28010419,Abanoub Saad Atta Bekhit,83��
+91,28012275,Sherien Mohammed Mahmoud Radwan Mohamed,83��
+92,2807006,Hend Taha Masry Omran Badawy,83��
+93,2804822,Marina Michel Alfred Antoun El Bahrawy,83��
+94,2803594,Merna Sameh Mohamed Ahmed Kouta,83��
+95,2803269,Engy Magdy Mohamed Saleh Ahmed,83��
+96,28012807,Noha Hassan Abdullah,82��
+97,2801560,Noran Mohamed Hassan Elatreby,82��
+98,28011985,Mohamed Khaled Ahmed Hefny,82��
+99,28011609,Nadia Ashraf Ahmed Amin Saif,82��
+100,28010932,Menatallah Abdulfattah Farghaly Abdellatif,82��
+101,28011045,Mai Eid Ismail Abdelsayed,81��
+102,2809983,Margerita Malak Danial Qaldes,81��
+103,28011821,Shrouk Mohamed Abdel Aal Abdo,81��
+104,28012696,Nehal Samir Mohamed,81��
+105,2802121,Ruba Amr Mohammad Abdel Salam Eraky,81��
+106,2803930,Mai Mostafa Abou El Seoud Ahmed,81��
+107,2800578,Farah Hesham Abdel Hamid Abdel Aziz,81��
+108,2804392,Mohamed Ahmed Elhussein Ali Mohamed,81��
+109,2804282,Radwa Ezzat Samir Abdel Aziz Diab,81��
+110,2804497,Heba Khaled Mahrous Salman,80��
+111,2806788,Amr Yehya Mohamed Gamal Ahmed,80��
+112,2809148,Youssef Mohamed Ali Mohamed Abady,80��
+113,2800883,Lamis Gamal El Sawy Abdl Aziz,80��
+114,2802201,Roba Hamed Barakat,80��
+115,28010435,May Moemen Mohamed Ismael,80��
+116,28010464,Maram Ahmed Abdel Hamid Ali Hassan,80��
+117,28011670,Sagy Badr Eldeen Youssef Mohammed,79��
+118,28012647,Hassan Mohamed Hassan Mohamed Elgamal,79��
+119,2802461,Nadine Mohamed Nabil Mahmoud Abdel Maksoud Abo Shanab,79��
+120,2803655,Hour Osama Taha Ahmed Ismail,79��
+121,2805200,Karim Amr Yehia El-Shimy Ali Hassanein,79��
+122,2802052,Nereen Mohamed Zaki Mohamed El Hedek,78��
+123,2800685,Menna Allah Saeid Rabeia Mosa,78��
+124,28012653,Doaa Youssef Said Mohamed,78��
+125,28011620,Howida Ashraf Mohamed Alseedy,78��
+126,28011881,Mark Farah Wadie Faltis,78��
+127,28011810,Noha Mohie ElDin Farouk El Manzalawi,78��
+128,28011926,Mahmoud Hamed Mohammed Elokaly,77��
+129,2802415,Salma Mohamed Salah El-Deen Hassan Aly Hussein,77��
+130,2804138,Rawda Ashraf Yehia Elawady,77��
+131,2804040,Hebatallah Mohamed Mohamed Mokhtar Zaky Mohamed Sabra,77��
+132,2804085,Noreen Nabil Hussien Abdel Halim Hemida,77��
+133,2809286,Fatima Magdy Abdel Wahab Khalil,77��
+134,2805654,Yosra Mohamed Hassen Abdel Hamid Nasr El Din,77��
+135,2800828,Omar Hany Osman Abdel Fatah Zaza,76��
+136,2802972,Yasmine Khaled Farouk Ali,76��
+137,2807509,Merna Osama Abdelsatar Abdelwahab,76��
+138,28012307,Muhammed Tarek El-Desouky Abdelwahab,76��
+139,28010777,Mohammed Emad Eldin Abdel Megid Elwesimy,76��
+140,28013275,Sara Raafat Saied Mohamad Abouelella,75��
+141,28013346,Amr Aly Mohamed Aly El Sayed,75��
+142,2801364,Kariman Ahmed Raef Ahmed,75��
+143,2806661,Soha Tarek Yehia Ahmed Attia,75��
+144,2809474,Omnia Alaa Eldeen Reyad Elsherif,75��
+145,2809510,Ahmed Amr Amin Mostafa,75��
+146,2803876,Passant Osama Mohammed Abdeljalil Salman,75��
+147,2804169,Mahytab Mohamed Ehab Abdel Hamid Bassam,75��
+148,2802518,Soha Nasser Mohamed sayed,74��
+149,2802780,Mohaned Ahmed Elemary,74��
+150,2801618,Ahmed Mohamed Amgad Samir Ameen,74��
+151,2800827,Mohammed Hany Osman Abdel Fatah Zaza,74��
+152,28013025,Nora Ashraf Fareed Mostafa,74��
+153,2801905,Reem Karam Saber Mohamed Mahmoud Fouda,74��
+154,2802570,Nouran Ashraf Nour El-Din Abbas El Mahdy,74��
+155,28011058,Monica Safwat Sobhy Beshay,74��
+156,28011022,Mayada Mamdouh Ali Rezk,74��
+157,28010147,Niveen Mohammad Taha Saleim,74��
+158,28012468,Yara Ali Mostafa Kamal Ali Hassan,74��
+159,28011008,Mahmoud Refaat Ahmed Saleh Teleb,73��
+160,2803650,David Ibrahim Nagoub Gabrial,73��
+161,2802616,Mennat Allah Ashraf Mostafa Kamal Ahmed,73��
+162,2800591,Hebatalla Yasser Mahmoud Abdalla,72��
+163,2801709,Norhane Ihab Ezz Eldin El Behery,72��
+164,28012289,Dina Nasser Eldeen Mohamed Ibrahim,72��
+165,28012381,Nehal Gamal Ali Algabasty,71��
+166,2801688,Aya Abdelgafar Moahemd Abdel Aal,71��
+167,28013260,Reta Rose Emeel Zaki,70��
+168,2804327,Mirna Girgis Said Gad El Rab Gad,70��
+169,2805789,Sally Mohamed Ashrafe Ali Ahmed Youssef,70��
+170,28012254,Esraa Elsayed Mahmoud Mahmoud Hamouda,70��
+171,28011655,Hala Tarek Mohamed Atef Sallam,69��
+172,2804593,Noha Adel Yassin Mohamed Roushdy,69��
+173,2802362,Fady George Loutfy Atta Allah,69��
+174,28012886,Aya Fathy El Werdany,69��
+175,2804666,Toka Osama Saleh Ahmed,69��
+176,2804746,Mina Medhat Shafik Ishak Maseeha,69��
+177,2801423,Besada Samy Barsoum Habib,69��
+178,2800987,Menna Allah Moustafa Ahmed El Dawoudy,69��
+179,2800819,Fady Hanea Badawy Moussa,68��
+180,2802253,John Hani Farag El Cott Samuel Farag,68��
+181,28012958,Aya Gamal Mohamed Ibrahim Seyam,68��
+182,2802553,Yomna Essam Nour Eldin Afify,68��
+183,2809288,Nada Said Mahmoud Badr Mousa,68��
+184,2807783,Yara Fathi El Laboudy,68��
+185,2809440,Mennah Allah Essam Samir Mohamed Mehrez,67��
+186,2805000,Sarah Tarek Mahmoud Attia,67��
+187,2805441,Sally Mustafa Ayash,67��
+188,2802481,Mariam George Youssef Kamel,67��
+189,2803404,John Maximos Gabra Abdo,67��
+190,28013167,Mariam Medhat Ahmed Mahmoud Hassaan,67��
+191,2800919,Yosr Ahmed Mohamed Abdel Rehem Ibrahim,67��
+192,2802238,Sherwit Shaaban Ali Mahmoud,67��
+193,28010887,Andrew Hany William Rizkalla,67��
+194,28010169,Demiana Malak Noshy Ibrahim Elias,67��
+195,28012455,Merna Hamdy Hasab El Naby Mohamed,66��
+196,2800917,Haya Mohamed Farag Moahmed El Hady Mohamed Hussien,66��
+197,2805435,Nouran Mohamed Abd Elfattah Awed,66��
+198,2804681,Maria Raafat Waheeb Aziz,66��
+199,2805514,Amr Mohammed Hamza Ibrahim El Embaby,66��
+200,2804814,Amal Elabbas Mohamed Anis Abouelnaga,66��
+201,2806206,Hams Ibrahim Abd Elmoniem,66��
+202,2809195,Hebatullah Khalid Ahmad Bassiouni,66��
+203,2809649,Shrouk Ayman Mohamed Khadr,66��
+204,2809660,Ahmed Salah Mohamad Ahmed Mustafa Sakr,65��
+205,2803944,Mirna Khaled Ibrahim El Ammary,65��
+206,2803237,Mariam Magued Mohamed El Said,65��
+207,2800778,Yomna Tarek Abdelgayed Abdelrahman,65��
+208,2801841,Shadwa Khaled Ibrahim Abdel Hameed Al Nakib,65��
+209,28012467,Mohammed Tarek Shawky Mahmoud Abdallah,65��
+210,28010976,Doaa Abdallah Ibrahim Abdalrahman,65��
+211,2800953,Rana Mohamed Metwally Abdel Hakim Youssef,64��
+212,28013318,Rana Ahmed Mohamed Elmonayri Mohamed Osh,64��
+213,2803239,Hossam Eldin Tarekmohamed Eiz El Din Thabit Maged,64��
+214,2803086,Aliah Moustafa Mohamed Rayan,64��
+215,2808812,Lamees Sherif Ibrahim Mostafa Shousha,64��
+216,2808891,Rana Ramadan Ibraheem Abdelaziz Salam,64��
+217,2805387,Mohammed Khidr Elzoghby,64��
+218,28013081,Yassmin Yassin Ali Shrshr,63��
+219,2801009,Abdelrahman Mohamed Fatouh El Far,63��
+220,2801930,Shorok Yaser Mohamed Hassan Rakha,63��
+221,2801212,Asser Maged Fawzy Hassan Agina,63��
+222,2801825,Ahmed Essam Abdel Wahab El Sayed Ahmed,62��
+223,2801890,Mai Abdel-Kawy Mohamed Habib,62��
+224,2800756,Yasmine Ahmed Abdel Hameed Ali Sonbol,62��
+225,2804696,Monica Raouf Risk Alla Ishak,62��
+226,2807319,Ireny Abdelmesseh Nekhala,62��
+227,2808259,Hesham Tarek Mohamed Elsaed Abdelgeleel Elsherif,62��
+228,2802728,Hebat Alah Ashraf Mohamed Khalil Mohamed Khalil,62��
+229,2804118,Noran Hussein Mohamed Fahmy,62��
+230,28012251,Fahd Rohiem Heiba Noseir Hamad,62��
+231,28012565,Antoine Nabil Guirguis,62��
+232,2804477,Serbeel Mohammed Abdel Hameed Ahmed Eliwa,61��
+233,2803724,Alaa Hossam Abdel Monaem Abdo,61��
+234,2803001,Noor Ahmed Mohamed Amin,61��
+235,2802902,Hadeer Samir Abd El-Aziz Ali Sorour,61��
+236,2809575,Mohamed Gamal Mohamed Kelash,61��
+237,2803649,Ahmed Mahmoud Samir Abdel Baki,61��
+238,2802085,Rana Shereif Mahmoud Elsaid Alawady,61��
+239,2801321,Martina Gabriel Shafeek Salama,61��
+240,28013209,Mina Kamal Reyad Hanna,61��
+241,28013169,Nada Adel Saber Al-Husseiny Mashal,60��
+242,2801441,Youssef Mahmoud Sayed Mohamed Awad,60��
+243,2803640,Amir Waheed Moawad Abo El Saad,60��
+244,2802102,Dina Sherif Mohamed Abdein Akl,60��
+245,2800936,Mohamed Hazem Mohamed Ibrahim,60��
+246,2805065,Mercurios Michel Aziz Fahmy,60��
+247,2805896,Omnia Salah Ibrahim Afifi,60��
+248,2803575,Yasmeen Mousa Ameen Elsayed,60��
+249,2803543,Salma Gamal Abdallah,60��
+250,28010367,Mai Mostafa Abdel Azim Mostafa Marzouk,60��
+251,28010159,Salma Alaa Abd-Alazim Lashine,59��
+252,28012297,Mark Raafat Naim Shehata,59��
+253,28011317,Menatullah Ramadan Ahmed Mohamed Essa,59��
+254,2804294,Dina Mohamed Said Abdl Moneam Ibrahim,59��
+255,2802480,Yara Mohamed Amr Faried Abou El Eizz El Eshraky,59��
+256,2805661,Antoine Philip Metry Abdullah,59��
+257,2808198,Norhan Mohamed Mohamed Shoukry Noaman El Shaf`y,59��
+258,2801646,Mirna Hany Youssef Bishieri,59��
+259,2806537,Mariam Talaat Ahmed Esmat El-Sadat,59��
+260,2204086,Dina Ali Mohammed Ali Ismail,59��
+261,2807124,Marcllino Monier Fayez Ghaly,58��
+262,2802642,Asmaa Ahmed Farag Abdel Rehem,58��
+263,2803952,Youstina Youssef Ibrahim Awad,57��
+264,2800323,Mayar Mohamed Ezzat Mohamed Kenawy,57��
+265,28011767,Omar Abd El-Fattah Mahmoud Mohammed Sakr,57��
+266,28011869,Nada Ezzat Zaky Kadous,57��
+267,28010524,Mahmoud Ramadan Fahim Gharbia,56��
+268,28012405,Nouran Tarek Afifi Moahmed,56��
+269,2800786,Pakinam Ahmed Fawzy Abdel Hamid Elmasry,56��
+270,2801719,George Magdy Mounir Habib Saba,56��
+271,28012927,Michael Magdy Naoum Hana,56��
+272,2205728,Ahmed Ehab Ibrahim Salama,56��
+273,2809900,Hoda Ahmed Bendary Ali,56��
+274,2809443,Mohamed Gamal Mohamad El Faramawy,56��
+275,2808634,Ayah Assem Bahyeldin Mehani Elgarhy,55��
+276,2803568,Reem Raafat Sabry Serag,55��
+277,2801885,Mohamed Aziz Shafik Mohamed Habib,55��
+278,2802857,Yasmin Khaled Hussien Noshy Ahmed,55��
+279,2806917,Mohamed Khaled Shafik Khalil Elkoumy,55��
+280,28012787,George Fouad Samir hanna Abdallah,55��
+281,2802014,Ayaallah Ali Abdel Latif Ali Darwish,55��
+282,2800971,Sintia Medhat Faress Danial,55��
+283,2801002,Alaa Mohamed Sayed Mohamed Abdel Razek,55��
+284,2509602,Mohamed Ameer Taha Mahmoud Ramadan,54��
+285,2801819,Noor Eldin Gevara Ali Abdel Khalek El Behairy,54��
+286,28013196,Mohamed Ayman Foad,54��
+287,28013498,Shimaa Mosleh Saleh Ibrahim El-Kasaly,54��
+288,2802792,Hadya Magdy Hassan Mostafa El Shourbagy,54��
+289,2802949,Passant Abd El Halim Abd El Nabi,54��
+290,2809713,Martin Naiem Naguib Gergis,54��
+291,28011174,Noaman Abd Al Hakam Ismail Mahdy Omara,54��
+292,28011199,Farah Abd Elhamid Ahmed Abd Elhamid Adiel,54��
+293,28010891,Ahmed Mohamed Mahmoud Ismail,53��
+294,28010804,Fatma Mohmmad Karim Abd El Fattah Azmy,53��
+295,2807273,Nada Osama Abo El Ezz El-Etreby,53��
+296,2802363,Aya Saeedabd El Hamid El Shazly,53��
+297,2802355,Mayar Mohamed Mahmoud Ahmed Mohamed Barakat,53��
+298,2802688,Mariam Alkes Yostos Fawzy Hanna Soliman,52��
+299,2807763,Mahmoud Modather Taha El Sayed Abouelkhair,52��
+300,28013355,Reem Reda Mohamed AbdelRahman,52��
+301,2801261,Yasmin Mohamed Ahmed Youssuf,52��
+302,28012291,Mina Maher Halim Ghobrial,52��
+303,28012549,Mostafa Youssef Abdallah El Sayed Badr,52��
+304,28012301,Ahmad Mohamed Wafike Ahmed Mohammed El-Halaby,51��
+305,2800702,Merna Amir Sobhi Zaki,51��
+306,28013257,Yasmeen Ali Mohamed Soliman Daoud,51��
+307,2509570,Sandra Emad Adly Doss,51��
+308,2500318,Basma Alaa Al Din Mohamed Dowara,51��
+309,2809599,Nouran Sayed Hussein Mohamed Saoudi,51��
+310,2804569,Farah Mohammed Abdel Ghafar Ismail Zwayyed,51��
+311,2807436,Keroulus Safwat Fayez Basta,50��
+312,2807574,Kareem Abd El-Fatah Khaleel Abd El-Fatah,50��
+313,2805717,Monica Georges Halim Soliman Stephanos,50��
+314,2200894,Marco Abo El Kheir Sayed Mehany,50��
+315,25011132,Ahmed Muhammad Abd El-Mawgoud Mohamed Abdelnaby,50��
+316,28010629,Mohamed Mahmoud Abbas Mohamed El-Seidy,50��
+317,28010466,Omar Khaled Mousa,50��
+318,28012356,Esraa Khaled Mohamed,50��
+319,28012412,Abanoub Ashraf Fayez Zaki Mankrious,50��
+320,28012456,Nouran Ehsan Moharam Mohammed Moharam,50��
+321,28012670,Madonna Hemaya Gerges Hemaya,50��
+322,2801545,Salma Sayed Salim Mohamed El Bouray,49��
+323,2200921,Khlood Khaled Abdel Raoof Abdel Fatah Ali,48��
+324,2802520,Suzan Magdy Ghobrial Awad,48��
+325,2802832,Michael Gamal Gamil Basha,48��
+326,28010966,Sara Hamdy Abdel Baseet Khattab,48��
+327,2801649,Ahmed Amr Abdel Fatah Abul Naga,47��
+328,2802061,Esraa Mohamed Mahmoud Aboelkheir,47��
+329,2801773,Hussien Mohamed Ahmed Ali,46��
+330,2803510,Meral Amr Yehia El-Ghoniemy,46��
+331,2806832,Pateer Hazem Antoun Aziz,46��
+332,28010515,Nseem Raaft Nseem Aid Mansour,46��
+333,28011264,Salma Said Ragab El Nashar,45��
+334,28012419,Ahmed Essam El Din Abd El Monaem Ibrahim,45��
+335,2804640,Mohamed Waheed Mohamed Mahmoud Abdel Latif,45��
+336,2204643,Omar Hassan Gaber Soliman Abdallah,45��
+337,28013301,Ahmed Awad Aboaitah,44��
+338,2805034,Amir Ashraf Zekry Ibrahim,44��
+339,2804271,Omar Mohamed Abdellatif Nour El Din,44��
+340,2803159,Hossam Eldin Sherif Abdel Khalek Guenedi,44��
+341,2808969,Nardeen Magdy Aiad Abd Elmaseeh,44��
+342,2801849,Menna Gamal Shafik Shalabi,43��
+343,2800859,Zeiad Wagih El Gishy,43��
+344,28012458,Nada Mahmoud Mohamed Hassan Kandil,43��
+345,28011568,Khalid Gamal Ibrahim Mohammed Abd Elnaby,43��
+346,2805681,Ahmed Fahmy Mohamed Ali Hassan,42��
+347,1002382,Karim Salah El Din Soliman Hassan,42��
+348,2808712,Ahmed Bahaa Mohammed Abdulsalam Hussin,42��
+349,2809150,Menna Farid Elaarag,41��
+350,2806760,Beshoy Emad Naiem Salib,41��
+351,2806103,Omar Mohamed Abdel Aal Mohamed Abdel Aal,41��
+352,2804163,Yasmin Hany Fahmy Mahmoud Elkholy,41��
+353,28012776,Emad Nagy Gad Alkareem Ebrahim,41��
+354,2200572,Abdullah Hamed Hamed Abdulaziz Eishish,41��
+355,2802733,Bishoy Fawzy Ghattas Botros,41��
+356,28011868,Khloud Said Mahmoud Khalil Ibrahim,41��
+357,2803971,Ameera Hamada Mohamed Abdelwahed Mohammed,40��
+358,2805728,Yasmin Moustafa Elsaeed Elkhouly,39��
+359,2803387,Mohamed Mohsen Amin Hussien,38��
+360,2802033,Zainab Ahmed Gamal El Din Mohamed Altohamy Salem,38��
+361,28011784,Abdelrhman Mohamed Abdelrhman Abdelmegid Shady,38��
+362,2801893,Stephanie Said Sobhy Said,37��
+363,2807950,Mahmoud Shaban Mahmoud Ebrahim,37��
+364,2500995,Kareem Abdel Fattah Elsaeed Ali,36��
+365,1909489,Bahy Mohamed Elbahy,36��
+366,2502455,Hesham Mahmoud Abd El Gawad Farag Alla,36��
+367,28012071,Mohamed Ashraf Mohamed Ali Ahmed,36��
+368,2800318,Mariz Samy Farag Shenoda Ibrahim,35��
+369,2804103,Ahmed Magdy Sayed Abdelhakeem Abdallah,35��
+370,2804538,Youssef Ezzat Samuel Mina,35��
+371,28013358,Amr Mohamed Gamiel Mohamed El-Behiry,34��
+372,2801481,Andrew Samir Sobhy Mikhail,33��
+373,2809084,Suzy Saad Mohamed Ali Abou Madawy,33��
+374,2805515,Sarah Kamal El Din Fouad Ibrahim,32��
+375,2801910,Mohamed Hatem Mahmoud Amer,32��
+376,2506255,Rawan Mahmoud Samy Ahmed Kobisy,32��
+377,2506297,Hinar Sherif Khalaf Abou Saleh,31��
+378,28010894,Youssef Samy Halim Fawzy Youssef,30��
+379,28010867,Sara Khaled Abd Al Sadek Ibrahim Mahgoub,29��
+380,2809153,Hebatalla Mohamed Farid Mohamed Elarag,29��
+381,1904260,Omar Mokhtar Abdelmineim Abdallah,28��
+382,28013578,Shaimaa Mohammed Abdelmoez Mohamed Attia,27��
