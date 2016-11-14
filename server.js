@@ -410,7 +410,7 @@ io.on('connection', function(socket) {
 
                         transporterGmail.sendMail({
                             from: 'pathogenious@gmail.com',
-                            to: u.userName + "@guc.edu.eg",
+                            to: u.userName + "@student.guc.edu.eg",
                             subject: 'verify pathogenious',
                             text: 'welcome ' + user.displayName + ' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.kodr.in/verify/' + t._id
                         }, function(err, info) {
@@ -418,7 +418,7 @@ io.on('connection', function(socket) {
                                 console.log("error sending verification mail with gmail ", err);
                                 transporter.sendMail({
                                     from: 'pathogenious@pathogenious.me',
-                                    to: u.userName + "@guc.edu.eg",
+                                    to: u.userName + "@student.guc.edu.eg",
                                     subject: 'verify pathogenious',
                                     text: 'welcome ' + user.displayName + ' !!\n to verify your mail and unlock your account just click the following link : \n http://pathogenious.kodr.in/verify/' + t._id
                                 }, function(err, info) {
@@ -837,22 +837,22 @@ io.on('connection', function(socket) {
             else {
                 transporterGmail.sendMail({
                     from: 'pathogenious@pathogenious.me',
-                    to: name + "@guc.edu.eg",
+                    to: name + "@student.guc.edu.eg",
                     subject: 'PathoGenius password request',
                     text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n' + password
                 }, function(err, info) {
                     if (err) {
-                        console.log("error sending mail with original transporter to " + name + "@guc.edu.eg ", err);
+                        console.log("error sending mail with original transporter to " + name + "@student.guc.edu.eg ", err);
 
 
 
                         transporter.sendMail({
                             from: 'pathogenious@gmail.com',
-                            to: name + "@guc.edu.eg",
+                            to: name + "@student.guc.edu.eg",
                             subject: 'PathoGenius password request',
                             text: 'welcome ' + users[0].displayName + ' !!\n You requsted to get back your PathoGenius password . here it is !! : \n' + password
                         }, function(err, info) {
-                            if (err) return console.log("error sending mail with original transporter to " + name + "@guc.edu.eg ", err);
+                            if (err) return console.log("error sending mail with original transporter to " + name + "@student.guc.edu.eg ", err);
                             console.log(info)
                         });
 
